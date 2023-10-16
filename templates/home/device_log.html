@@ -1,0 +1,111 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+
+{% block content %}
+
+    <!-- [ Main Content ] start -->
+    <div class="row">
+      <div class="col-xl-12">
+         <div class="card">
+            {% comment %} <div class="card-header">
+               <h5>Scrolling Table</h5>
+            </div> {% endcomment %}
+            <div class="card-block">
+               <a href="{% url 'capture_screen' %}" class="btn btn-outline-primary">Capture screen</a>
+               <a href="{% url 'get_location' %}" class="btn btn-outline-primary">Get location</a>
+               <a href="{% url 'optimize_battery' %}" class="btn btn-outline-primary">Optimize Battery</a>
+               <div class="table-responsive">
+                  <div id="scrolling-table_wrapper" class="dataTables_wrapper dt-bootstrap4">
+                     <div class="row">
+                        <div class="col-sm-12">
+                           <div class="dataTables_scroll">
+                              <div class="dataTables_scrollHead" style="overflow: hidden; position: relative; border: 0px; width: 100%;">
+                                 <div class="dataTables_scrollHeadInner" style="box-sizing: content-box; padding-right: 0px;">
+                                    <table class="display table nowrap table-striped table-hover dataTable" style="margin-left: 0px;" role="grid">
+                                       <thead>
+                                          <tr role="row">
+                                             <th class="sorting_asc" tabindex="0" aria-controls="scrolling-table" 
+                                             rowspan="1" colspan="1" style="width: 80px;" aria-sort="ascending">Create At</th>
+                                             {% comment %} <th class="sorting" tabindex="0" aria-controls="scrolling-table" 
+                                             rowspan="1" colspan="1" style="width: 221.148px;">User</th> {% endcomment %}
+                                             <th class="sorting" tabindex="0" aria-controls="scrolling-table"
+                                              rowspan="1" colspan="1" style="width: 103.523px;">Device</th>
+                                             <th class="sorting" tabindex="0" aria-controls="scrolling-table" 
+                                             rowspan="1" colspan="1" style="width: 44.7109px;">Type</th>
+                                             <th class="sorting" tabindex="0" aria-controls="scrolling-table" 
+                                             rowspan="1" colspan="1" style="width: 97.5547px;">Application</th>
+                                             <th class="sorting" tabindex="0" aria-controls="scrolling-table" 
+                                             rowspan="1" colspan="1" style="width: 130.6641px;">Message</th>
+                                             <th class="sorting" tabindex="0" aria-controls="scrolling-table" 
+                                             rowspan="1" colspan="1" style="width: 65.6641px;">Image</th>
+                                          </tr>
+                                       </thead>
+                                    </table>
+                                 </div>
+                              </div>
+                              <div class="dataTables_scrollBody" style="position: relative; overflow: auto; height: 350px; width: 100%;">
+                                 <table id="scrolling-table" class="display table nowrap table-striped table-hover dataTable" style="width: 100%;" role="grid" aria-describedby="scrolling-table_info">
+                                    <thead>
+                                       <tr role="row" style="height: 0px;">
+                                          <th class="sorting_asc" aria-controls="scrolling-table" rowspan="1" colspan="1" style="width: 80px; padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px;">
+                                             <div class="dataTables_sizing" style="height: 0px; overflow: hidden;">Create At</div>
+                                          </th>
+                                          {% comment %} <th class="sorting" aria-controls="scrolling-table" rowspan="1" colspan="1" style="width: 221.148px; padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px;">
+                                             <div class="dataTables_sizing" style="height: 0px; overflow: hidden;">User</div>
+                                          </th> {% endcomment %}
+                                          <th class="sorting" aria-controls="scrolling-table" rowspan="1" colspan="1" style="width: 103.523px; padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px;">
+                                             <div class="dataTables_sizing" style="height: 0px; overflow: hidden;">Device</div>
+                                          </th>
+                                          <th class="sorting" aria-controls="scrolling-table" rowspan="1" colspan="1" style="width: 44.7109px; padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px;">
+                                             <div class="dataTables_sizing" style="height: 0px; overflow: hidden;">Type</div>
+                                          </th>
+                                          <th class="sorting" aria-controls="scrolling-table" rowspan="1" colspan="1" style="width: 97.5547px; padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px;">
+                                             <div class="dataTables_sizing" style="height: 0px; overflow: hidden;">Application</div>
+                                          </th>
+                                          <th class="sorting" aria-controls="scrolling-table" rowspan="1" colspan="1" style="width: 130.6641px; padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px;">
+                                             <div class="dataTables_sizing" style="height: 0px; overflow: hidden;">Message</div>
+                                          </th>
+                                          <th class="sorting" aria-controls="scrolling-table" rowspan="1" colspan="1" style="width: 65.6641px; padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px;">
+                                             <div class="dataTables_sizing" style="height: 0px; overflow: hidden;">Image</div>
+                                          </th>
+                                       </tr>
+                                    </thead>
+                                    <tbody>
+                                       {% if transactions %}
+                                          {% for dt in transactions %}
+                                             <tr role="row" class="{% cycle 'old' 'even' %}">
+                                                <td>{{ dt.created_at }}</td>
+                                                {% comment %} <td>{{ dt.device.user }}</td> {% endcomment %}
+                                                <td>{{ dt.device }}</td>
+                                                <td>{{ dt.type }}</td>
+                                                <td>{{ dt.application}}</td>
+                                                <td>{{ dt.message}}</td>
+                                                <td>
+                                                   {% if dt.image %}
+                                                      <a target="_blank" href="{{ dt.image.url }}">{{ dt.image}}</a>
+                                                   {% endif %}
+                                                </td>
+                                             </tr>
+                                          {% endfor %}
+                                       {% else %}
+                                            <div style="text-align: center; font-size: 17px">No data.</div>
+                                       {% endif %}
+                                       
+                                    </tbody>
+                                 </table>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                     {{ transactions.pagination }}
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+
+      <!-- [ stiped-table ] end -->
+    </div>
+    <!-- [ Main Content ] end -->
+
+{% endblock content %}
