@@ -8,6 +8,8 @@ from django.urls import reverse
 from django.contrib import messages
 from .models import *
 from core.utils import set_pagination
+import json
+import requests
 
 # @login_required
 def index(request):
@@ -50,19 +52,30 @@ def device_log(request):
 
 @login_required
 def capture_screen(request):
-  user = request.user
-  # page = request.GET.get('page')
-  # if page and page.isnumeric():
-  #   page = int(page)
-  # else:
-  #   page = 1
-  # devices = Device.objects.filter(user_id=user.id)
-  # device_ids = list(devices.values_list('id', flat=True)) if len(devices) > 0 else []
-  # if device_ids:
-  #   device_log = DeviceLog.objects.filter(device__in=device_ids).order_by('-created_at')
-  #   context['transactions'], context['info'] = set_pagination(request, device_log, 10)
-
-  return redirect("/device/my-log")
+    if request.method!="POST":
+      messages.error(request,"Failed to update Profile")
+      return HttpResponseRedirect(reverse("device_log"))
+    else:
+      user = request.user
+      # device = Device.objects.get(user_id=request.user.id)
+      # token= device.token
+      # url="https://fcm.googleapis.com/fcm/send"
+      # body={
+      #     "notification":{
+      #         "title":"Student Management System",
+      #         "body":message,
+      #         "click_action": "https://studentmanagementsystem22.herokuapp.com/student_all_notification",
+      #         "icon": "http://studentmanagementsystem22.herokuapp.com/static/dist/img/user2-160x160.jpg"
+      #     },
+      #     "to":token
+      # }
+      # headers={"Content-Type":"application/json","Authorization":"key=SERVER_KEY_HERE"}
+      # data= requests.post(url,data=json.dumps(body),headers=headers)
+      # notification= NotificationStudent(student_id=student,message=message)
+      # notification.save()
+      messages.error(request,"capture_screen")
+      return HttpResponseRedirect(reverse("device_log"))
+  # return redirect("/device/my-log")
 
 @login_required
 def get_location(request):

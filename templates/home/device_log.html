@@ -11,12 +11,37 @@
                <h5>Scrolling Table</h5>
             </div> {% endcomment %}
             <div class="card-block">
-               <a href="{% url 'capture_screen' %}" class="btn btn-outline-primary">Capture screen</a>
-               <a href="{% url 'get_location' %}" class="btn btn-outline-primary">Get location</a>
-               <a href="{% url 'optimize_battery' %}" class="btn btn-outline-primary">Optimize Battery</a>
+               <div class="d-flex">
+                  <form action="{% url 'capture_screen' %}" method="POST">
+                     {% csrf_token %}
+                     <button class="btn btn-outline-primary" type="submit"
+                        data-toggle="tooltip">Capture screen</button>
+                  </form>
+                  <form action="{% url 'get_location' %}" method="POST">
+                     {% csrf_token %}
+                     <button class="btn btn-outline-primary" type="submit"
+                        data-toggle="tooltip">Get location</button>
+                  </form>
+                  <form action="{% url 'optimize_battery' %}" method="POST">
+                     {% csrf_token %}
+                     <button class="btn btn-outline-primary" type="submit"
+                        data-toggle="tooltip">Optimize Battery</button>
+                  </form>
+               </div>
+               {% if messages %}
+                  {% for message in messages %}
+                     {% if message.tags == 'success' %}
+                     <p class="text-success">This text represents danger.
+                     {% elif message.tags == 'error' %}
+                     <p class="text-danger">This text represents danger.
+                     {% endif %}
+                           {{ message }}
+                     </p>
+                  {% endfor %}
+               {% endif %}
                <div class="table-responsive">
                   <div id="scrolling-table_wrapper" class="dataTables_wrapper dt-bootstrap4">
-                     <div class="row">
+                     <div class="row m-0">
                         <div class="col-sm-12">
                            <div class="dataTables_scroll">
                               <div class="dataTables_scrollHead" style="overflow: hidden; position: relative; border: 0px; width: 100%;">
@@ -43,7 +68,7 @@
                                     </table>
                                  </div>
                               </div>
-                              <div class="dataTables_scrollBody" style="position: relative; overflow: auto; height: 350px; width: 100%;">
+                              <div class="dataTables_scrollBody" style="position: relative; overflow: auto; width: 100%;">
                                  <table id="scrolling-table" class="display table nowrap table-striped table-hover dataTable" style="width: 100%;" role="grid" aria-describedby="scrolling-table_info">
                                     <thead>
                                        <tr role="row" style="height: 0px;">
