@@ -111,10 +111,10 @@ WSGI_APPLICATION = "core.wsgi.application"
 # DB_PORT     = os.getenv('DB_PORT'     , None)
 # DB_NAME     = os.getenv('DB_NAME'     , None)
 DB_ENGINE   = 'postgresql'
-DB_USERNAME = 'user_tracking'
+DB_USERNAME = 'admin'
 DB_PASS     = '123'
 DB_HOST     = 'localhost'
-DB_PORT     = '5432'
+DB_PORT     = '5434'
 DB_NAME     = 'user_tracking'
 
 if DB_ENGINE and DB_NAME and DB_USERNAME:

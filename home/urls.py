@@ -10,4 +10,5 @@ urlpatterns = [
   path('device/capture-screen', views.capture_screen, name='capture_screen'),
   path('device/get-location', views.get_location, name='get_location'),
   path('device/optimize-battery', views.optimize_battery, name='optimize_battery'),
+  path('user/update', views.update_user, name='update_user'),
 ]
