@@ -19,6 +19,8 @@ from django.conf import settings
 from django.conf.urls.static import static
 from rest_framework.authtoken.views import obtain_auth_token # <-- NEW
 from . import views
+from home.views import CustomAuthToken
+
 
 urlpatterns = [
     path('', include('home.urls')),
@@ -31,7 +33,7 @@ urlpatterns = [
 # During the first build, API is not yet generated
 try:
     urlpatterns.append( path("api/"      , include("api.urls"))    )
-    urlpatterns.append( path("login/jwt/", view=obtain_auth_token) )
+    urlpatterns.append( path("login/jwt/", view=CustomAuthToken.as_view()) )
 except:
     pass
 

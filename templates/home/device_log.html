@@ -31,9 +31,9 @@
                {% if messages %}
                   {% for message in messages %}
                      {% if message.tags == 'success' %}
-                     <p class="text-success">This text represents danger.
+                     <p class="text-success">
                      {% elif message.tags == 'error' %}
-                     <p class="text-danger">This text represents danger.
+                     <p class="text-danger">
                      {% endif %}
                            {{ message }}
                      </p>

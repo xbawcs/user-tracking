@@ -217,3 +217,12 @@ REST_FRAMEWORK = {
     ],
 }
 ########################################
+
+# FCM Settings
+FCM_SERVER_KEY = ''
+
+import firebase_admin
+from firebase_admin import credentials
+
+cred = credentials.Certificate("./notification-firebase-adminsdk.json")
+firebase_admin.initialize_app(cred)

@@ -3,7 +3,6 @@ from django.template import loader
 from django.http import HttpResponse, JsonResponse, QueryDict
 from django import template
 
-
 @login_required()
 def pages(request):
     context = {}

@@ -8,19 +8,45 @@ from django.urls import reverse
 from django.contrib import messages
 from .models import *
 from core.utils import set_pagination
-import json
-import requests
+from rest_framework.authtoken.views import ObtainAuthToken
+from rest_framework.authtoken.models import Token
+from rest_framework.response import Response
+from firebase_admin import credentials, messaging
 
-# @login_required
+# Custom auth
+class CustomAuthToken(ObtainAuthToken):
+
+  def post(self, request, *args, **kwargs):
+      if request.data and not request.data.get('device_token', ''):
+        return Response({'device_token': '"device_token" must be required'})
+
+      serializer = self.serializer_class(data=request.data,
+                                          context={'request': request})
+      serializer.is_valid(raise_exception=True)
+      user = serializer.validated_data['user']
+      token, created = Token.objects.get_or_create(user=user)
+      # Get device or create
+      device, created = Device.objects.get_or_create(user=user)
+      device.token = request.data.get('device_token')
+      device.save()
+
+      return Response({
+          'token': token.key,
+          'device': device.code
+      })
+# END: Custom auth ------------
+
+@login_required
 def index(request):
 
   context = {
     'segment'  : 'index',
 
   }
-  # return render(request, "pages/firebase.html", context)
-
-  return redirect("/device/my-log")
+  if not request.user.is_superuser:
+    return render(request, "home/device_log.html", context)
+  else:
+    return render(request, "pages/profile.html", context)
   # return render(request, "pages/index.html", context)
 
 @login_required
@@ -30,7 +56,7 @@ def tables(request):
   }
   return render(request, "pages/dynamic-tables.html", context)
 
-
+# --------- Device action -----------
 @login_required
 def device_log(request):
   context = {
@@ -52,66 +78,110 @@ def device_log(request):
 
 @login_required
 def capture_screen(request):
-    if request.method!="POST":
-      messages.error(request,"Failed to update Profile")
-      return HttpResponseRedirect(reverse("device_log"))
+  if request.method!="POST":
+    messages.error(request, 'Method not allowed.')
+    return HttpResponseRedirect(reverse("device_log"))
+  else:
+    user = request.user
+    device = Device.objects.filter(user_id=user.id).first()
+    error = ''
+    if not device:
+      error = 'Unsuccessful because user does not have any devices.'
     else:
-      user = request.user
-      # device = Device.objects.get(user_id=request.user.id)
-      # token= device.token
-      # url="https://fcm.googleapis.com/fcm/send"
-      # body={
-      #     "notification":{
-      #         "title":"Student Management System",
-      #         "body":message,
-      #         "click_action": "https://studentmanagementsystem22.herokuapp.com/student_all_notification",
-      #         "icon": "http://studentmanagementsystem22.herokuapp.com/static/dist/img/user2-160x160.jpg"
-      #     },
-      #     "to":token
-      # }
-      # headers={"Content-Type":"application/json","Authorization":"key=SERVER_KEY_HERE"}
-      # data= requests.post(url,data=json.dumps(body),headers=headers)
-      # notification= NotificationStudent(student_id=student,message=message)
-      # notification.save()
-      messages.error(request,"capture_screen")
-      return HttpResponseRedirect(reverse("device_log"))
-  # return redirect("/device/my-log")
-
+      if device.token:
+        message = messaging.MulticastMessage(
+          notification=messaging.Notification(
+            title='capture_screen',
+            body='capture_screen'
+          ),
+          tokens=[device.token]
+        )
+        messaging.send_multicast(message)
+      else:
+        error = 'Invalid device token.'
+    # Save log action
+    if error:
+      log = error
+      messages.error(request, error)
+    else:
+      log = "Request has been sent successfully"
+      messages.success(request, log)
+    DeviceActivity(created_by= user, device=device if device else None, type='capture', log=log).save()
+    return HttpResponseRedirect(reverse("device_log"))
+  
 @login_required
 def get_location(request):
-  user = request.user
-  # page = request.GET.get('page')
-  # if page and page.isnumeric():
-  #   page = int(page)
-  # else:
-  #   page = 1
-  # devices = Device.objects.filter(user_id=user.id)
-  # device_ids = list(devices.values_list('id', flat=True)) if len(devices) > 0 else []
-  # if device_ids:
-  #   device_log = DeviceLog.objects.filter(device__in=device_ids).order_by('-created_at')
-  #   context['transactions'], context['info'] = set_pagination(request, device_log, 10)
-
-  return redirect("/device/my-log")
+  if request.method!="POST":
+    messages.error(request, 'Method not allowed.')
+    return HttpResponseRedirect(reverse("device_log"))
+  else:
+    user = request.user
+    device = Device.objects.filter(user_id=user.id).first()
+    error = ''
+    if not device:
+      error = 'Unsuccessful because user does not have any devices.'
+    else:
+      if device.token:
+        message = messaging.MulticastMessage(
+          notification=messaging.Notification(
+            title='get_location',
+            body='get_location'
+          ),
+          tokens=[device.token]
+        )
+        messaging.send_multicast(message)
+      else:
+        error = 'Invalid device token.'
+    # Save log action
+    if error:
+      log = error
+      messages.error(request, error)
+    else:
+      log = "Request has been sent successfully"
+      messages.success(request, log)
+    DeviceActivity(created_by= user, device=device if device else None, type='location', log=log).save()
+    return HttpResponseRedirect(reverse("device_log"))
 
 @login_required
 def optimize_battery(request):
-  user = request.user
-  # page = request.GET.get('page')
-  # if page and page.isnumeric():
-  #   page = int(page)
-  # else:
-  #   page = 1
-  # devices = Device.objects.filter(user_id=user.id)
-  # device_ids = list(devices.values_list('id', flat=True)) if len(devices) > 0 else []
-  # if device_ids:
-  #   device_log = DeviceLog.objects.filter(device__in=device_ids).order_by('-created_at')
-  #   context['transactions'], context['info'] = set_pagination(request, device_log, 10)
+  if request.method!="POST":
+    messages.error(request, 'Method not allowed.')
+    return HttpResponseRedirect(reverse("device_log"))
+  else:
+    user = request.user
+    device = Device.objects.filter(user_id=user.id).first()
+    error = ''
+    if not device:
+      error = 'Unsuccessful because user does not have any devices.'
+    else:
+      if device.token:
+        message = messaging.MulticastMessage(
+          notification=messaging.Notification(
+            title='optimize_battery',
+            body='optimize_battery'
+          ),
+          tokens=[device.token]
+        )
+        messaging.send_multicast(message)
+      else:
+        error = 'Invalid device token.'
+    # Save log action
+    if error:
+      log = error
+      messages.error(request, error)
+    else:
+      log = "Request has been sent successfully"
+      messages.success(request, log)
+    DeviceActivity(created_by= user, device=device if device else None, type='optimize', log=log).save()
+    return HttpResponseRedirect(reverse("device_log"))
 
-  return redirect("/device/my-log")
+# --------- END: Device action -----------
 
+# --------- User action -----------
+@login_required
 def update_user(request):
     if request.method!="POST":
-        messages.error(request,"Failed to update Profile")
+        messages.error(request,"Failed to update profile")
         return HttpResponseRedirect(reverse("profile"))
     else:
         try:
@@ -129,7 +199,10 @@ def update_user(request):
               account.gender = request.POST.get("gender", '')
               account.user.save()
               account.save()
-              messages.success(request,"Successfully update Profile")
-        except:
-            messages.error(request,"Failed to update Profile")
+              messages.success(request,"Successfully update profile.")
+        except Exception as e:
+          print('{}'.format(e))
+          messages.error(request,"Failed to update profile.")
         return HttpResponseRedirect(reverse("profile"))
+    
+# --------- END: User action -----------
