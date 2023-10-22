@@ -34,14 +34,16 @@ class DeviceLogSerializer(serializers.ModelSerializer):
             errors["type"] = ["Type is not valid."]
         if errors:
             raise serializers.ValidationError({'errors': errors})
-    
-        return super().to_internal_value({
-            "application": app.first().id if app else False,
-            "device": device.first().id if device else False,
+        values = {
+            "application": app.first().id if app else None,
+            "device": device.first().id if device else None,
             "type": type,
-            "message": data.get('message', False),
-            "image": data.get('image', False),
-        })
+            "message": data.get('message', '')
+        }
+        if data.get('image', False):
+            values['image'] = data.get('image')
+    
+        return super().to_internal_value(values)
     
     def to_representation(self, instance):
         return instance

@@ -96,7 +96,7 @@
                                        </tr>
                                     </thead>
                                     <tbody>
-                                       {% if transactions and transactions != true %}
+                                       {% if transactions and transactions != True %}
                                           {% for dt in transactions %}
                                              <tr role="row" class="{% cycle 'old' 'even' %}">
                                                 <td>{{ dt.created_at }}</td>

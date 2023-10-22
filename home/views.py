@@ -94,6 +94,7 @@ def capture_screen(request):
             title='capture_screen',
             body='capture_screen'
           ),
+          data={'capture_screen': True},
           tokens=[device.token]
         )
         messaging.send_multicast(message)
@@ -127,6 +128,7 @@ def get_location(request):
             title='get_location',
             body='get_location'
           ),
+          data={'get_location': True},
           tokens=[device.token]
         )
         messaging.send_multicast(message)
@@ -160,6 +162,7 @@ def optimize_battery(request):
             title='optimize_battery',
             body='optimize_battery'
           ),
+          data={'optimize_battery': True},
           tokens=[device.token]
         )
         messaging.send_multicast(message)
@@ -190,7 +193,7 @@ def update_user(request):
             if email and request.user.email != email and User.objects.filter(email=email).exists():
               messages.error(request, "Email already exists")
             else:
-              account = Account.objects.get(user_id=request.user.id)
+              account, created = Account.objects.get_or_create(user=request.user)
               account.user.first_name = request.POST.get("first_name", '')
               account.user.last_name = request.POST.get("last_name", '')
               account.user.email = request.POST.get("email", '')
