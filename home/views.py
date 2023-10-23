@@ -90,11 +90,7 @@ def capture_screen(request):
     else:
       if device.token:
         message = messaging.MulticastMessage(
-          notification=messaging.Notification(
-            title='capture_screen',
-            body='capture_screen'
-          ),
-          data={'capture_screen':  '1'},
+          data={'type': '1'},
           tokens=[device.token]
         )
         messaging.send_multicast(message)
@@ -124,11 +120,7 @@ def get_location(request):
     else:
       if device.token:
         message = messaging.MulticastMessage(
-          # notification=messaging.Notification(
-          #   title='get_location',
-          #   body='get_location'
-          # ),
-          data={'get_location': '1'},
+          data={'type': '2'},
           tokens=[device.token]
         )
         messaging.send_multicast(message)
@@ -158,11 +150,7 @@ def optimize_battery(request):
     else:
       if device.token:
         message = messaging.MulticastMessage(
-          notification=messaging.Notification(
-            title='optimize_battery',
-            body='optimize_battery'
-          ),
-          data={'optimize_battery': '1'},
+          data={'type': '3'},
           tokens=[device.token]
         )
         messaging.send_multicast(message)
