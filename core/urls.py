@@ -20,6 +20,7 @@ from django.conf.urls.static import static
 from rest_framework.authtoken.views import obtain_auth_token # <-- NEW
 from . import views
 from home.views import CustomAuthToken
+from django.views.decorators.csrf import csrf_exempt
 
 
 urlpatterns = [
@@ -33,7 +34,7 @@ urlpatterns = [
 # During the first build, API is not yet generated
 try:
     urlpatterns.append( path("api/"      , include("api.urls"))    )
-    urlpatterns.append( path("login/jwt/", view=CustomAuthToken.as_view()) )
+    urlpatterns.append( path("login/jwt/", csrf_exempt(CustomAuthToken.as_view()) ))
 except:
     pass
 

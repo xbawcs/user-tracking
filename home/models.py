@@ -63,7 +63,7 @@ class DeviceLog(models.Model):
     created_at  = models.DateTimeField(auto_now_add=True, null=True)
 
     def __str__(self):
-        return self.device.code
+        return self.device.code if  self.device else ''
     
 # Device Actions
 class DeviceActivity(models.Model):
@@ -75,4 +75,4 @@ class DeviceActivity(models.Model):
     created_by  = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
 
     def __str__(self):
-        return self.device.code
+        return self.device.code if  self.device else ''
