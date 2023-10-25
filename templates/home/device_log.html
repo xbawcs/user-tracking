@@ -7,11 +7,8 @@
     <div class="row">
       <div class="col-xl-12">
          <div class="card">
-            {% comment %} <div class="card-header">
-               <h5>Scrolling Table</h5>
-            </div> {% endcomment %}
-            <div class="card-block">
-               <div class="d-flex">
+            <div class="card-header pb-0">
+               <div class="d-flex flex-wrap">
                   <form action="{% url 'capture_screen' %}" method="POST">
                      {% csrf_token %}
                      <button class="btn btn-outline-primary" type="submit"
@@ -39,6 +36,8 @@
                      </p>
                   {% endfor %}
                {% endif %}
+            </div>
+            <div class="card-block">
                <div class="table-responsive">
                   <div id="scrolling-table_wrapper" class="dataTables_wrapper dt-bootstrap4">
                      <div class="row m-0">

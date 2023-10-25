@@ -6,6 +6,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.urls import reverse
 from django.contrib import messages
+from django.conf import settings
 from .models import *
 from core.utils import set_pagination
 from rest_framework.authtoken.views import ObtainAuthToken
@@ -44,10 +45,9 @@ def index(request):
 
   }
   if not request.user.is_superuser:
-    return render(request, "home/device_log.html", context)
+    return HttpResponseRedirect(reverse("device_log"))
   else:
     return render(request, "pages/profile.html", context)
-  # return render(request, "pages/index.html", context)
 
 @login_required
 def tables(request):
@@ -72,14 +72,14 @@ def device_log(request):
   device_ids = list(devices.values_list('id', flat=True)) if len(devices) > 0 else []
   if device_ids:
     device_log = DeviceLog.objects.filter(device__in=device_ids).order_by('-created_at')
-    context['transactions'], context['info'] = set_pagination(request, device_log, 10)
+    context['transactions'], context['info'] = set_pagination(request, device_log, settings.LIST_PER_PAGE)
 
   return render(request, "home/device_log.html", context)
 
 @login_required
 def capture_screen(request):
   if request.method!="POST":
-    messages.error(request, 'Method not allowed.')
+    # messages.error(request, 'Method not allowed.')
     return HttpResponseRedirect(reverse("device_log"))
   else:
     user = request.user

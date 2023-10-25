@@ -3,6 +3,9 @@ from django.apps import apps
 from home import models
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.models import User
+from django.conf import settings
+
+admin.ModelAdmin.list_per_page = settings.LIST_PER_PAGE
 
 # Base read only model
 class BaseReadOnlyAdminMixin:

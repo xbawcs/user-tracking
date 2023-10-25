@@ -13,7 +13,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 import os, random, string, inspect
 from pathlib import Path
 from dotenv import load_dotenv
-
+from django.utils.translation import gettext_lazy as _
 import django_dyn_dt
 
 load_dotenv()  # take environment variables from .env.
@@ -70,6 +70,7 @@ MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
+    "django.middleware.locale.LocaleMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
@@ -160,11 +161,21 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = "en-us"
 
+LANGUAGES = [
+    ('en', _('English')),
+    ('vi', _('Tiếng việt')),
+]
+
 TIME_ZONE = "Asia/Ho_Chi_Minh"
 
 USE_I18N = True
 
+USE_L10N = True
+
 USE_TZ = True
+
+
+LIST_PER_PAGE = 50
 
 
 # Static files (CSS, JavaScript, Images)
