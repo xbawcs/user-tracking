@@ -159,11 +159,15 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
 
-LANGUAGE_CODE = "en-us"
+LANGUAGES = (
+    ('vi', 'Vietnamese'),
+    ('en-us', 'English (US)'),
+)
 
-LANGUAGES = [
-    ('en', _('English')),
-    ('vi', _('Tiếng việt')),
+LANGUAGE_CODE = "vi"
+
+LOCALE_PATHS = [
+    os.path.join(BASE_DIR, 'locale'),
 ]
 
 TIME_ZONE = "Asia/Ho_Chi_Minh"
@@ -173,7 +177,6 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
-
 
 LIST_PER_PAGE = 50
 
@@ -230,8 +233,6 @@ REST_FRAMEWORK = {
 ########################################
 
 # FCM Settings
-FCM_SERVER_KEY = ''
-
 import firebase_admin
 from firebase_admin import credentials
 

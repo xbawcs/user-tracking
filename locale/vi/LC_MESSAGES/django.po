@@ -1,0 +1,97 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-10-25 23:40+0700\n"
+"PO-Revision-Date: 2023-10-25 23:38+0700\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: vi\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Poedit 3.0.1\n"
+
+#: .\home\models.py:10
+msgid "SMS"
+msgstr "Tin nhắn"
+
+#: .\home\models.py:11
+msgid "Captrue screen"
+msgstr "Chụp màn hình"
+
+#: .\home\models.py:12
+msgid "Get Location"
+msgstr "Lấy vị trí"
+
+#: .\home\models.py:13
+msgid "Optimize Battery"
+msgstr "Tối ưu dung lượng Pin"
+
+#: .\home\models.py:16
+msgid "Male"
+msgstr "Nam"
+
+#: .\home\models.py:17
+msgid "Female"
+msgstr "Nữ"
+
+#: .\home\models.py:18
+msgid "Unknow"
+msgstr "Không xác định"
+
+#: .\home\views.py:23
+msgid "\"device_token\" must be required"
+msgstr "\"device_token\" không có thông tin"
+
+#: .\home\views.py:90 .\home\views.py:120 .\home\views.py:150
+msgid "Unsuccessful because user does not have any devices."
+msgstr "Không thành công do người dùng không có thiết bị."
+
+#: .\home\views.py:99 .\home\views.py:129 .\home\views.py:159
+msgid "Invalid device token."
+msgstr "Token thiết bị không hợp lệ."
+
+#: .\home\views.py:105 .\home\views.py:135 .\home\views.py:165
+msgid "Request has been sent successfully"
+msgstr "Yêu cầu đã gửi thành công"
+
+#: .\home\views.py:113 .\home\views.py:143
+msgid "Method not allowed."
+msgstr ""
+
+#: .\home\views.py:176 .\home\views.py:197
+msgid "Failed to update profile."
+msgstr "Cập nhật hồ sơ không thành công."
+
+#: .\home\views.py:183
+msgid "Email already exists"
+msgstr "Email đã tồn tại"
+
+#: .\home\views.py:194
+msgid "Successfully update profile."
+msgstr "Cập nhật hồ sơ thành công."
+
+#: .\templates\home\device_log.html:16
+#, fuzzy
+#| msgid "Captrue screen"
+msgid "Capture screen"
+msgstr "Chụp màn hình"
+
+#: .\templates\home\device_log.html:21
+#, fuzzy
+#| msgid "Get Location"
+msgid "Get location"
+msgstr "Lấy vị trí"
+
+#: .\templates\home\device_log.html:26
+#, fuzzy
+#| msgid "Optimize Battery"
+msgid "Optimize battery"
+msgstr "Tối ưu dung lượng Pin"

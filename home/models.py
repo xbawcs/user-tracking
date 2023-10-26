@@ -4,17 +4,18 @@ from django.contrib.auth.models import User
 from datetime import datetime
 import binascii
 import os
+from django.utils.translation import gettext as _
 
 TYPE_LOG = (
-    ('sms','SMS'),
-    ('capture', 'Captrue screen'),
-    ('location','Get Location'),
-    ('optimize','Optimize Battery')
+    ('sms', _('SMS')),
+    ('capture', _('Captrue screen')),
+    ('location', _('Get Location')),
+    ('optimize', _('Optimize Battery'))
 )
 GENDER = (
-    ('male', 'Male'), 
-    ('female', 'Female'), 
-    ('unknow', 'Unknow')
+    ('male', _('Male')), 
+    ('female', _('Female')), 
+    ('unknow', _('Unknow'))
 )
 
 class Account(models.Model):

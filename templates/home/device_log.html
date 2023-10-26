@@ -1,4 +1,5 @@
 {% extends 'layouts/base.html' %}
+{% load i18n %}
 {% load static %}
 
 {% block content %}
@@ -12,17 +13,17 @@
                   <form action="{% url 'capture_screen' %}" method="POST">
                      {% csrf_token %}
                      <button class="btn btn-outline-primary" type="submit"
-                        data-toggle="tooltip">Capture screen</button>
+                        data-toggle="tooltip">{% translate "Capture screen" %}</button>
                   </form>
                   <form action="{% url 'get_location' %}" method="POST">
                      {% csrf_token %}
                      <button class="btn btn-outline-primary" type="submit"
-                        data-toggle="tooltip">Get location</button>
+                        data-toggle="tooltip">{% translate "Get location" %}</button>
                   </form>
                   <form action="{% url 'optimize_battery' %}" method="POST">
                      {% csrf_token %}
                      <button class="btn btn-outline-primary" type="submit"
-                        data-toggle="tooltip">Optimize Battery</button>
+                        data-toggle="tooltip">{% translate "Optimize battery" %}</button>
                   </form>
                </div>
                {% if messages %}
