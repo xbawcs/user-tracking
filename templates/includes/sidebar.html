@@ -14,7 +14,7 @@
     <div class="navbar-content scroll-div">
       <ul class="nav pcoded-inner-navbar">
         <li class="nav-item pcoded-menu-caption">
-          <label>Navigation</label>
+          <label>{% translate "Navigation" %}</label>
         </li>
         <!-- {% if request.user.is_superuser %}
           <li data-username="dashboard Default Ecommerce CRM Analytics Crypto Project" class="nav-item {% if 'index' in segment %}active{% endif %}">
@@ -27,10 +27,10 @@
 
         {% if request.user.is_authenticated %}
           <li data-username="Device log" class="nav-item {% if 'device_log' in segment %}active{% endif %}"><a href="{% url 'device_log' %}" class="nav-link"><span
-            class="pcoded-micon"><i class="feather icon-file-text"></i></span><span class="pcoded-mtext">Device log</span></a>
+            class="pcoded-micon"><i class="feather icon-file-text"></i></span><span class="pcoded-mtext">{% translate "Device log" %}</span></a>
           </li>
           <li data-username="Profile Page" class="nav-item {% if 'profile' in segment %}active{% endif %}"><a href="{% url 'profile' %}" class="nav-link"><span
-              class="pcoded-micon"><i class="feather icon-user"></i></span><span class="pcoded-mtext">Profile</span></a>
+              class="pcoded-micon"><i class="feather icon-user"></i></span><span class="pcoded-mtext">{% translate "Profile" %}</span></a>
           </li>
         {% else %}
           <li

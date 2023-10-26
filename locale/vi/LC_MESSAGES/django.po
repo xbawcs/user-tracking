@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-25 23:40+0700\n"
-"PO-Revision-Date: 2023-10-25 23:38+0700\n"
+"POT-Creation-Date: 2023-10-27 00:17+0700\n"
+"PO-Revision-Date: 2023-10-27 00:21+0700\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: vi\n"
@@ -17,6 +17,14 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Poedit 3.0.1\n"
+
+#: .\core\settings.py:164
+msgid "Vietnamese"
+msgstr "Tiếng việt"
+
+#: .\core\settings.py:165
+msgid "English"
+msgstr "Tiếng anh"
 
 #: .\home\models.py:10
 msgid "SMS"
@@ -34,17 +42,115 @@ msgstr "Lấy vị trí"
 msgid "Optimize Battery"
 msgstr "Tối ưu dung lượng Pin"
 
-#: .\home\models.py:16
+#: .\home\models.py:16 .\templates\pages\profile.html:58
 msgid "Male"
 msgstr "Nam"
 
-#: .\home\models.py:17
+#: .\home\models.py:17 .\templates\pages\profile.html:57
 msgid "Female"
 msgstr "Nữ"
 
 #: .\home\models.py:18
 msgid "Unknow"
 msgstr "Không xác định"
+
+#: .\home\models.py:23 .\templates\pages\profile.html:49
+msgid "Birthday"
+msgstr "Ngày sinh"
+
+#: .\home\models.py:24 .\templates\pages\profile.html:55
+msgid "Gender"
+msgstr "Giới tính"
+
+#: .\home\models.py:25 .\templates\pages\profile.html:66
+msgid "Bio"
+msgstr "Thông tin khác"
+
+#: .\home\models.py:28
+msgid "Account"
+msgstr "Người dùng"
+
+#: .\home\models.py:29
+msgid "Accounts"
+msgstr "Người dùng"
+
+#: .\home\models.py:34 .\home\models.py:47
+msgid "Code"
+msgstr "Mã"
+
+#: .\home\models.py:35 .\home\models.py:48
+msgid "Name"
+msgstr "Tên"
+
+#: .\home\models.py:38 .\home\models.py:71 .\templates\home\device_log.html:64
+#: .\templates\home\device_log.html:92
+msgid "Application"
+msgstr "Ứng dụng"
+
+#: .\home\models.py:39
+msgid "Applications"
+msgstr "Danh sách ứng dụng"
+
+#: .\home\models.py:49
+msgid "Token"
+msgstr ""
+
+#: .\home\models.py:50
+msgid "User"
+msgstr "Người dùng"
+
+#: .\home\models.py:53 .\home\models.py:72 .\home\models.py:88
+#: .\templates\home\device_log.html:60 .\templates\home\device_log.html:86
+msgid "Device"
+msgstr "Thiết bị"
+
+#: .\home\models.py:54
+msgid "Devices"
+msgstr "Danh sách thiết bị"
+
+#: .\home\models.py:73 .\home\models.py:89 .\templates\home\device_log.html:62
+#: .\templates\home\device_log.html:89
+msgid "Type"
+msgstr "Loại"
+
+#: .\home\models.py:74 .\templates\home\device_log.html:66
+#: .\templates\home\device_log.html:95
+msgid "Message"
+msgstr "Tin nhắn"
+
+#: .\home\models.py:75 .\templates\home\device_log.html:68
+#: .\templates\home\device_log.html:98
+msgid "Image"
+msgstr "Ảnh"
+
+#: .\home\models.py:76 .\home\models.py:91
+msgid "Created at"
+msgstr "Ngày tạo"
+
+#: .\home\models.py:79 .\templates\home\device_log.html:13
+#: .\templates\includes\sidebar.html:30
+msgid "Device log"
+msgstr "Lịch sử thiết bị"
+
+#: .\home\models.py:80
+msgid "Device Logs"
+msgstr "Lịch sử thiết bị"
+
+#: .\home\models.py:90
+msgid "Log"
+msgstr "Ghi chú"
+
+#: .\home\models.py:92
+msgid "Created by"
+msgstr "Người tạo"
+
+#: .\home\models.py:95
+msgid "Device activity"
+msgstr "Hành động thiết bị"
+
+#: .\home\models.py:96
+msgid "Device activities"
+msgstr "Hành động thiết bị"
 
 #: .\home\views.py:23
 msgid "\"device_token\" must be required"
@@ -78,20 +184,102 @@ msgstr "Email đã tồn tại"
 msgid "Successfully update profile."
 msgstr "Cập nhật hồ sơ thành công."
 
-#: .\templates\home\device_log.html:16
-#, fuzzy
-#| msgid "Captrue screen"
+#: .\templates\home\device_log.html:20
 msgid "Capture screen"
 msgstr "Chụp màn hình"
 
-#: .\templates\home\device_log.html:21
-#, fuzzy
-#| msgid "Get Location"
+#: .\templates\home\device_log.html:25
 msgid "Get location"
 msgstr "Lấy vị trí"
 
-#: .\templates\home\device_log.html:26
-#, fuzzy
-#| msgid "Optimize Battery"
+#: .\templates\home\device_log.html:30
 msgid "Optimize battery"
 msgstr "Tối ưu dung lượng Pin"
+
+#: .\templates\home\device_log.html:55 .\templates\home\device_log.html:79
+msgid "Create at"
+msgstr "Ngày tạo"
+
+#: .\templates\home\device_log.html:121
+msgid "No data."
+msgstr "Không có dữ liệu."
+
+#: .\templates\includes\navigation.html:21
+msgid "Wellcome"
+msgstr "Xin chào"
+
+#: .\templates\includes\navigation.html:44 .\templates\includes\sidebar.html:33
+msgid "Profile"
+msgstr "Thông tin hồ sơ"
+
+#: .\templates\includes\navigation.html:51
+msgid "Change Password"
+msgstr "Đổi mật khẩu"
+
+#: .\templates\includes\navigation.html:60
+msgid "Logout"
+msgstr "Đăng xuất"
+
+#: .\templates\includes\pagination.html:5
+msgid "Showing"
+msgstr "Hiển thị"
+
+#: .\templates\includes\pagination.html:5
+msgid "to"
+msgstr "từ"
+
+#: .\templates\includes\pagination.html:5
+msgid "of"
+msgstr "của"
+
+#: .\templates\includes\pagination.html:5
+msgid "entries"
+msgstr "bản ghi"
+
+#: .\templates\includes\pagination.html:12
+msgid "Previous"
+msgstr "Trước"
+
+#: .\templates\includes\pagination.html:28
+msgid "Next"
+msgstr "Sau"
+
+#: .\templates\includes\sidebar.html:17
+msgid "Navigation"
+msgstr "Thanh công cụ"
+
+#: .\templates\pages\profile.html:13
+msgid "Edit Info"
+msgstr "Cập nhật hồ sơ"
+
+#: .\templates\pages\profile.html:21 .\templates\pages\profile.html:23
+msgid "First Name"
+msgstr "Tên"
+
+#: .\templates\pages\profile.html:28 .\templates\pages\profile.html:30
+msgid "Last Name"
+msgstr "Họ"
+
+#: .\templates\pages\profile.html:35
+msgid "User name"
+msgstr "Người dùng"
+
+#: .\templates\pages\profile.html:41
+msgid "Email address"
+msgstr "Email"
+
+#: .\templates\pages\profile.html:43
+msgid "Enter email"
+msgstr "Nhập email"
+
+#: .\templates\pages\profile.html:44
+msgid "We'll never share your email with anyone else."
+msgstr "Thông tin này sẽ không được chia sẽ với bất cứ ai."
+
+#: .\templates\pages\profile.html:64
+msgid "About Info"
+msgstr "Thông tin khác"
+
+#: .\templates\pages\profile.html:82
+msgid "Save"
+msgstr "Lưu"

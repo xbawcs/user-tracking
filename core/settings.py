@@ -67,6 +67,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'core.middleware.force_default_language_middleware',
     "django.middleware.security.SecurityMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
@@ -160,8 +161,8 @@ AUTH_PASSWORD_VALIDATORS = [
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
 
 LANGUAGES = (
-    ('vi', 'Vietnamese'),
-    ('en-us', 'English (US)'),
+    ('vi', _('Vietnamese')),
+    ('en', _('English')),
 )
 
 LANGUAGE_CODE = "vi"

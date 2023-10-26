@@ -13,7 +13,7 @@ from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
 from firebase_admin import credentials, messaging
-from django.utils.translation import gettext as _
+from django.utils.translation import gettext_lazy as _
 
 # Custom auth
 class CustomAuthToken(ObtainAuthToken):

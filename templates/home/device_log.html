@@ -1,4 +1,5 @@
 {% extends 'layouts/base.html' %}
+{% block breadcrumbs %}{% endblock breadcrumbs %}
 {% load i18n %}
 {% load static %}
 
@@ -8,7 +9,10 @@
     <div class="row">
       <div class="col-xl-12">
          <div class="card">
-            <div class="card-header pb-0">
+            <div class="card-header">
+               <h5>{% translate "Device log" %}</h5>
+             </div>
+            <div class="card-block pt-2">
                <div class="d-flex flex-wrap">
                   <form action="{% url 'capture_screen' %}" method="POST">
                      {% csrf_token %}
@@ -37,8 +41,6 @@
                      </p>
                   {% endfor %}
                {% endif %}
-            </div>
-            <div class="card-block">
                <div class="table-responsive">
                   <div id="scrolling-table_wrapper" class="dataTables_wrapper dt-bootstrap4">
                      <div class="row m-0">
@@ -50,19 +52,19 @@
                                        <thead>
                                           <tr role="row">
                                              <th class="sorting_asc" tabindex="0" aria-controls="scrolling-table" 
-                                             rowspan="1" colspan="1" style="width: 80px;" aria-sort="ascending">Create At</th>
+                                             rowspan="1" colspan="1" style="width: 80px;" aria-sort="ascending">{% translate "Create at" %}</th>
                                              {% comment %} <th class="sorting" tabindex="0" aria-controls="scrolling-table" 
-                                             rowspan="1" colspan="1" style="width: 221.148px;">User</th> {% endcomment %}
+                                             rowspan="1" colspan="1" style="width: 221.148px;">{% translate "User" %}</th> {% endcomment %}
                                              <th class="sorting" tabindex="0" aria-controls="scrolling-table"
-                                              rowspan="1" colspan="1" style="width: 103.523px;">Device</th>
+                                              rowspan="1" colspan="1" style="width: 103.523px;">{% translate "Device" %}</th>
                                              <th class="sorting" tabindex="0" aria-controls="scrolling-table" 
-                                             rowspan="1" colspan="1" style="width: 44.7109px;">Type</th>
+                                             rowspan="1" colspan="1" style="width: 44.7109px;">{% translate "Type" %}</th>
                                              <th class="sorting" tabindex="0" aria-controls="scrolling-table" 
-                                             rowspan="1" colspan="1" style="width: 97.5547px;">Application</th>
+                                             rowspan="1" colspan="1" style="width: 97.5547px;">{% translate "Application" %}</th>
                                              <th class="sorting" tabindex="0" aria-controls="scrolling-table" 
-                                             rowspan="1" colspan="1" style="width: 130.6641px;">Message</th>
+                                             rowspan="1" colspan="1" style="width: 130.6641px;">{% translate "Message" %}</th>
                                              <th class="sorting" tabindex="0" aria-controls="scrolling-table" 
-                                             rowspan="1" colspan="1" style="width: 65.6641px;">Image</th>
+                                             rowspan="1" colspan="1" style="width: 65.6641px;">{% translate "Image" %}</th>
                                           </tr>
                                        </thead>
                                     </table>
@@ -73,25 +75,25 @@
                                     <thead>
                                        <tr role="row" style="height: 0px;">
                                           <th class="sorting_asc" aria-controls="scrolling-table" rowspan="1" colspan="1" style="width: 80px; padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px;">
-                                             <div class="dataTables_sizing" style="height: 0px; overflow: hidden;">Create At</div>
+                                             <div class="dataTables_sizing" style="height: 0px; overflow: hidden;">{% translate "Create at" %}</div>
                                           </th>
                                           {% comment %} <th class="sorting" aria-controls="scrolling-table" rowspan="1" colspan="1" style="width: 221.148px; padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px;">
-                                             <div class="dataTables_sizing" style="height: 0px; overflow: hidden;">User</div>
+                                             <div class="dataTables_sizing" style="height: 0px; overflow: hidden;">{% translate "User" %}</div>
                                           </th> {% endcomment %}
                                           <th class="sorting" aria-controls="scrolling-table" rowspan="1" colspan="1" style="width: 103.523px; padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px;">
-                                             <div class="dataTables_sizing" style="height: 0px; overflow: hidden;">Device</div>
+                                             <div class="dataTables_sizing" style="height: 0px; overflow: hidden;">{% translate "Device" %}</div>
                                           </th>
                                           <th class="sorting" aria-controls="scrolling-table" rowspan="1" colspan="1" style="width: 44.7109px; padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px;">
-                                             <div class="dataTables_sizing" style="height: 0px; overflow: hidden;">Type</div>
+                                             <div class="dataTables_sizing" style="height: 0px; overflow: hidden;">{% translate "Type" %}</div>
                                           </th>
                                           <th class="sorting" aria-controls="scrolling-table" rowspan="1" colspan="1" style="width: 97.5547px; padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px;">
-                                             <div class="dataTables_sizing" style="height: 0px; overflow: hidden;">Application</div>
+                                             <div class="dataTables_sizing" style="height: 0px; overflow: hidden;">{% translate "Application" %}</div>
                                           </th>
                                           <th class="sorting" aria-controls="scrolling-table" rowspan="1" colspan="1" style="width: 130.6641px; padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px;">
-                                             <div class="dataTables_sizing" style="height: 0px; overflow: hidden;">Message</div>
+                                             <div class="dataTables_sizing" style="height: 0px; overflow: hidden;">{% translate "Message" %}</div>
                                           </th>
                                           <th class="sorting" aria-controls="scrolling-table" rowspan="1" colspan="1" style="width: 65.6641px; padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px;">
-                                             <div class="dataTables_sizing" style="height: 0px; overflow: hidden;">Image</div>
+                                             <div class="dataTables_sizing" style="height: 0px; overflow: hidden;">{% translate "Image" %}</div>
                                           </th>
                                        </tr>
                                     </thead>
@@ -99,7 +101,7 @@
                                        {% if transactions and transactions != True %}
                                           {% for dt in transactions %}
                                              <tr role="row" class="{% cycle 'old' 'even' %}">
-                                                <td>{{ dt.created_at }}</td>
+                                                <td>{{ dt.created_at|date:"d/m/Y H:i" }}</td>
                                                 {% comment %} <td>{{ dt.device.user }}</td> {% endcomment %}
                                                 <td>{{ dt.device }}</td>
                                                 <td>{{ dt.type }}</td>
@@ -113,7 +115,7 @@
                                              </tr>
                                           {% endfor %}
                                        {% else %}
-                                            <div style="text-align: center; font-size: 17px">No data.</div>
+                                            <div style="text-align: center; font-size: 17px">{% translate "No data." %}</div>
                                        {% endif %}
                                        
                                     </tbody>
