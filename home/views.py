@@ -13,13 +13,14 @@ from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
 from firebase_admin import credentials, messaging
+from django.utils.translation import gettext_lazy as _
 
 # Custom auth
 class CustomAuthToken(ObtainAuthToken):
 
   def post(self, request, *args, **kwargs):
       if request.data and not request.data.get('device_token', ''):
-        return Response({'device_token': '"device_token" must be required'})
+        return Response({'device_token': _('"device_token" must be required')})
 
       serializer = self.serializer_class(data=request.data,
                                           context={'request': request})
@@ -86,7 +87,7 @@ def capture_screen(request):
     device = Device.objects.filter(user_id=user.id).first()
     error = ''
     if not device:
-      error = 'Unsuccessful because user does not have any devices.'
+      error = _('Unsuccessful because user does not have any devices.')
     else:
       if device.token:
         message = messaging.MulticastMessage(
@@ -95,13 +96,13 @@ def capture_screen(request):
         )
         messaging.send_multicast(message)
       else:
-        error = 'Invalid device token.'
+        error = _('Invalid device token.')
     # Save log action
     if error:
       log = error
       messages.error(request, error)
     else:
-      log = "Request has been sent successfully"
+      log = _("Request has been sent successfully")
       messages.success(request, log)
     DeviceActivity(created_by= user, device=device if device else None, type='capture', log=log).save()
     return HttpResponseRedirect(reverse("device_log"))
@@ -109,14 +110,14 @@ def capture_screen(request):
 @login_required
 def get_location(request):
   if request.method!="POST":
-    messages.error(request, 'Method not allowed.')
+    messages.error(request, _('Method not allowed.'))
     return HttpResponseRedirect(reverse("device_log"))
   else:
     user = request.user
     device = Device.objects.filter(user_id=user.id).first()
     error = ''
     if not device:
-      error = 'Unsuccessful because user does not have any devices.'
+      error = _('Unsuccessful because user does not have any devices.')
     else:
       if device.token:
         message = messaging.MulticastMessage(
@@ -125,13 +126,13 @@ def get_location(request):
         )
         messaging.send_multicast(message)
       else:
-        error = 'Invalid device token.'
+        error = _('Invalid device token.')
     # Save log action
     if error:
       log = error
       messages.error(request, error)
     else:
-      log = "Request has been sent successfully"
+      log = _("Request has been sent successfully")
       messages.success(request, log)
     DeviceActivity(created_by= user, device=device if device else None, type='location', log=log).save()
     return HttpResponseRedirect(reverse("device_log"))
@@ -139,14 +140,14 @@ def get_location(request):
 @login_required
 def optimize_battery(request):
   if request.method!="POST":
-    messages.error(request, 'Method not allowed.')
+    messages.error(request, _('Method not allowed.'))
     return HttpResponseRedirect(reverse("device_log"))
   else:
     user = request.user
     device = Device.objects.filter(user_id=user.id).first()
     error = ''
     if not device:
-      error = 'Unsuccessful because user does not have any devices.'
+      error = _('Unsuccessful because user does not have any devices.')
     else:
       if device.token:
         message = messaging.MulticastMessage(
@@ -155,13 +156,13 @@ def optimize_battery(request):
         )
         messaging.send_multicast(message)
       else:
-        error = 'Invalid device token.'
+        error = _('Invalid device token.')
     # Save log action
     if error:
       log = error
       messages.error(request, error)
     else:
-      log = "Request has been sent successfully"
+      log = _("Request has been sent successfully")
       messages.success(request, log)
     DeviceActivity(created_by= user, device=device if device else None, type='optimize', log=log).save()
     return HttpResponseRedirect(reverse("device_log"))
@@ -172,14 +173,14 @@ def optimize_battery(request):
 @login_required
 def update_user(request):
     if request.method!="POST":
-        messages.error(request,"Failed to update profile")
+        messages.error(request, _("Failed to update profile."))
         return HttpResponseRedirect(reverse("profile"))
     else:
         try:
             # Check email
             email = request.POST.get("email", '')
             if email and request.user.email != email and User.objects.filter(email=email).exists():
-              messages.error(request, "Email already exists")
+              messages.error(request, _("Email already exists"))
             else:
               account, created = Account.objects.get_or_create(user=request.user)
               account.user.first_name = request.POST.get("first_name", '')
@@ -190,10 +191,10 @@ def update_user(request):
               account.gender = request.POST.get("gender", '')
               account.user.save()
               account.save()
-              messages.success(request,"Successfully update profile.")
+              messages.success(request, _("Successfully update profile."))
         except Exception as e:
           print('{}'.format(e))
-          messages.error(request,"Failed to update profile.")
+          messages.error(request, _("Failed to update profile."))
         return HttpResponseRedirect(reverse("profile"))
     
 # --------- END: User action -----------
