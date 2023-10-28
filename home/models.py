@@ -23,6 +23,7 @@ class Account(models.Model):
     birthday    = models.DateField(null=True, blank=True, verbose_name=_("Birthday"))
     gender      = models.CharField(max_length=6, choices=GENDER, verbose_name=_("Gender"))
     bio         = models.TextField(null=True, blank=True, verbose_name=_("Bio"))
+    avatar      = models.ImageField(upload_to='avatar/', null=True, blank=True)
 
     class Meta:
         verbose_name = _("Account")

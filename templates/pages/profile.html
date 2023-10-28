@@ -6,6 +6,7 @@
 {% block content %}
 
   <!-- [ Main Content ] start -->
+  <form action="{% url 'update_user' %}" method="POST" enctype="multipart/form-data">
   <div class="row">
     <div class="col-sm-8">
       <div class="card">
@@ -13,7 +14,6 @@
           <h5>{% translate "Edit Info" %}</h5>
         </div>
         <div class="card-block">
-          <form action="{% url 'update_user' %}" method="POST">
             {% csrf_token %}
             <div class="row">
               <div class="col-sm-6 mb-4">
@@ -80,7 +80,6 @@
                 {% endfor %}
             {% endif %}
             <button type="submit" class="btn btn-primary">{% translate "Save" %}</button>
-          </form>
         </div>
       </div>
     </div>
@@ -88,12 +87,31 @@
       <div class="card">
         <div class="card-block">
           <div class="d-flex align-items-center justify-content-center flex-column">
-            <div class="w-50 p-3">
-              <img src="https://via.placeholder.com/500" alt="profile image"
-                class="img-fluid rounded-circle">
+            <div class="p-3">
+              <div class="avatar-upload">
+                <div class="avatar-edit">
+                    <input type='file' name="avatar" id="imageUpload" accept=".png, .jpg, .jpeg" />
+                    <label for="imageUpload"><i class="feather icon-edit p-1"></i></label>
+                </div>
+                <div class="avatar-preview">
+                    <div id="imagePreview" style="background-image: url(
+                        {% if request.user.account.avatar %}
+                          {{ request.user.account.avatar.url }}
+                        {% else %}
+                          /static/assets/images/user/avatar-1.jpg
+                        {% endif %}
+                      );"></div>
+
+                </div>
+              </div>
+              <!-- <img src="https://via.placeholder.com/500" alt="profile image"
+                class="img-fluid rounded-circle"> -->
             </div>
             <div class="text-center">
               <h4 class="font-weight-bold h6">{{request.user.last_name}} {{request.user.first_name}}</h4>
+              <p class="font-italic text-muted">
+                {{request.user.email}}
+              </p>
             </div>
           </div>
          <div class="d-flex justify-content-center align-items-center">
@@ -106,6 +124,26 @@
       </div>
     </div>
   </div>
+</form>
   <!-- [ Main Content ] end -->
 
  {% endblock content %}
+
+ {% block extra_js %}
+ <script>
+  function readURL(input) {
+      if (input.files && input.files[0]) {
+          var reader = new FileReader();
+          reader.onload = function(e) {
+              $('#imagePreview').css('background-image', 'url('+e.target.result +')');
+              $('#imagePreview').hide();
+              $('#imagePreview').fadeIn(650);
+          }
+          reader.readAsDataURL(input.files[0]);
+      }
+  }
+  $("#imageUpload").change(function() {
+      readURL(this);
+  });
+</script>
+ {% endblock extra_js %}
