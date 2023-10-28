@@ -186,9 +186,11 @@ def update_user(request):
               account.user.first_name = request.POST.get("first_name", '')
               account.user.last_name = request.POST.get("last_name", '')
               account.user.email = request.POST.get("email", '')
-              account.birthday = request.POST.get("birthday", '')
+              account.birthday = request.POST.get("birthday") if request.POST.get("birthday") else None
               account.bio = request.POST.get("bio", '')
               account.gender = request.POST.get("gender", '')
+              if request.FILES.get("avatar", None):
+                account.avatar = request.FILES.get("avatar")
               account.user.save()
               account.save()
               messages.success(request, _("Successfully update profile."))

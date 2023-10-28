@@ -46,7 +46,7 @@
                      <div class="row m-0">
                         <div class="col-sm-12">
                            <div class="dataTables_scroll">
-                              <div class="dataTables_scrollHead" style="overflow: hidden; position: relative; border: 0px; width: 100%;">
+                              <!-- <div class="dataTables_scrollHead" style="overflow: hidden; position: relative; border: 0px; width: 100%;">
                                  <div class="dataTables_scrollHeadInner" style="box-sizing: content-box; padding-right: 0px;">
                                     <table class="display table nowrap table-striped table-hover dataTable" style="margin-left: 0px;" role="grid">
                                        <thead>
@@ -69,31 +69,28 @@
                                        </thead>
                                     </table>
                                  </div>
-                              </div>
+                              </div> -->
                               <div class="dataTables_scrollBody" style="position: relative; overflow: auto; width: 100%;">
                                  <table id="scrolling-table" class="display table nowrap table-striped table-hover dataTable" style="width: 100%;" role="grid" aria-describedby="scrolling-table_info">
                                     <thead>
-                                       <tr role="row" style="height: 0px;">
-                                          <th class="sorting_asc" aria-controls="scrolling-table" rowspan="1" colspan="1" style="width: 80px; padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px;">
-                                             <div class="dataTables_sizing" style="height: 0px; overflow: hidden;">{% translate "Create at" %}</div>
+                                       <tr role="row" >
+                                          <th class="sorting_asc" aria-controls="scrolling-table" rowspan="1" colspan="1" >
+                                             <div class="dataTables_sizing">{% translate "Create at" %}</div>
                                           </th>
-                                          {% comment %} <th class="sorting" aria-controls="scrolling-table" rowspan="1" colspan="1" style="width: 221.148px; padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px;">
-                                             <div class="dataTables_sizing" style="height: 0px; overflow: hidden;">{% translate "User" %}</div>
-                                          </th> {% endcomment %}
-                                          <th class="sorting" aria-controls="scrolling-table" rowspan="1" colspan="1" style="width: 103.523px; padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px;">
-                                             <div class="dataTables_sizing" style="height: 0px; overflow: hidden;">{% translate "Device" %}</div>
+                                          <th class="sorting" aria-controls="scrolling-table" rowspan="1" colspan="1" style="width: 103.523px">
+                                             <div class="dataTables_sizing">{% translate "Device" %}</div>
                                           </th>
-                                          <th class="sorting" aria-controls="scrolling-table" rowspan="1" colspan="1" style="width: 44.7109px; padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px;">
-                                             <div class="dataTables_sizing" style="height: 0px; overflow: hidden;">{% translate "Type" %}</div>
+                                          <th class="sorting" aria-controls="scrolling-table" rowspan="1" colspan="1" style="width: 44.7109px">
+                                             <div class="dataTables_sizing">{% translate "Type" %}</div>
                                           </th>
-                                          <th class="sorting" aria-controls="scrolling-table" rowspan="1" colspan="1" style="width: 97.5547px; padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px;">
-                                             <div class="dataTables_sizing" style="height: 0px; overflow: hidden;">{% translate "Application" %}</div>
+                                          <th class="sorting" aria-controls="scrolling-table" rowspan="1" colspan="1" style="width: 97.5547px">
+                                             <div class="dataTables_sizing">{% translate "Application" %}</div>
                                           </th>
-                                          <th class="sorting" aria-controls="scrolling-table" rowspan="1" colspan="1" style="width: 130.6641px; padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px;">
-                                             <div class="dataTables_sizing" style="height: 0px; overflow: hidden;">{% translate "Message" %}</div>
+                                          <th class="sorting" aria-controls="scrolling-table" rowspan="1" colspan="1" style="width: 130.6641px">
+                                             <div class="dataTables_sizing">{% translate "Message" %}</div>
                                           </th>
-                                          <th class="sorting" aria-controls="scrolling-table" rowspan="1" colspan="1" style="width: 65.6641px; padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px;">
-                                             <div class="dataTables_sizing" style="height: 0px; overflow: hidden;">{% translate "Image" %}</div>
+                                          <th class="sorting" aria-controls="scrolling-table" rowspan="1" colspan="1" style="width: 65.6641px">
+                                             <div class="dataTables_sizing">{% translate "Image" %}</div>
                                           </th>
                                        </tr>
                                     </thead>
