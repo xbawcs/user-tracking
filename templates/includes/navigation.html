@@ -36,7 +36,12 @@
           <div class="dropdown-menu dropdown-menu-right profile-notification">
             {% if request.user.is_authenticated %}
               <div class="pro-head">
-                <img src="{% static 'assets/images/user/avatar-1.jpg' %}" class="img-radius" alt="User-Profile-Image">
+                <img src="
+                  {% if request.user.account.avatar %}
+                    {{ request.user.account.avatar.url }}
+                  {% else %}
+                    {% static 'assets/images/user/avatar-1.jpg' %}
+                  {% endif %}" class="img-radius" alt="User-Profile-Image">
                 <span>{{request.user.last_name}} {{request.user.first_name}}</span>
               </div>
               <ul class="pro-body">
