@@ -30,7 +30,7 @@ class DeviceAdmin(admin.ModelAdmin):
 
 
 class DeviceLogAdmin(BaseReadOnlyAdminMixin, admin.ModelAdmin):
-    list_display = ("device", "type", "application", "message", "image")
+    list_display = ("device", "type", "application", "message", "image", "created_at")
     search_fields = ('device__code', 'type', 'application__code')
     list_filter = ('type', 'application')
 

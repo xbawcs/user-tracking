@@ -175,11 +175,15 @@ TIME_ZONE = "Asia/Ho_Chi_Minh"
 
 USE_I18N = True
 
-USE_L10N = True
+USE_L10N = False
 
 USE_TZ = True
 
 LIST_PER_PAGE = 50
+
+DATETIME_FORMAT = "d/m/Y H:i:s"
+
+DATE_FORMAT = "d/m/Y"
 
 
 # Static files (CSS, JavaScript, Images)
