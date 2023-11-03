@@ -69,8 +69,9 @@ def device_log(request):
     page = int(page)
   else:
     page = 1
-  devices = Device.objects.filter(user_id=user.id)
-  device_ids = list(devices.values_list('id', flat=True)) if len(devices) > 0 else []
+  device = Device.objects.filter(user_id=user.id).first()
+  device_ids = [device.id] if device else []
+  context['loop_capture'] = device.is_interval if device else False
   if device_ids:
     device_log = DeviceLog.objects.filter(device__in=device_ids).order_by('-created_at')
     context['transactions'], context['info'] = set_pagination(request, device_log, settings.LIST_PER_PAGE)
@@ -165,6 +166,45 @@ def optimize_battery(request):
       log = _("Request has been sent successfully")
       messages.success(request, log)
     DeviceActivity(created_by= user, device=device if device else None, type='optimize', log=log).save()
+    return HttpResponseRedirect(reverse("device_log"))
+
+
+@login_required
+def loop_capture(request):
+  if request.method!="POST":
+    messages.error(request, _('Method not allowed.'))
+    return HttpResponseRedirect(reverse("device_log"))
+  else:
+    user = request.user
+    device = Device.objects.filter(user_id=user.id).first()
+    error = ''
+    if not device:
+      error = _('Unsuccessful because user does not have any devices.')
+    else:
+      loop_capture = request.POST.get("loop_capture", '')
+      if device.token:
+        device.loop_capture(True if loop_capture == '1' else False)
+        # message = messaging.MulticastMessage(
+        #   data={
+        #     'type': '4',
+        #     'is_interval': '1' if loop_capture == '1' else '0'
+        #   },
+        #   tokens=[device.token]
+        # )
+        # messaging.send_multicast(message)
+        # # Update flag loop capture
+        # device.is_interval = True if loop_capture == '1' else False
+        # device.save()
+      else:
+        error = _('Invalid device token.')
+    # Save log action
+    if error:
+      log = error
+      messages.error(request, error)
+    else:
+      log = _("Request has been sent successfully")
+      messages.success(request, log)
+    DeviceActivity(created_by= user, device=device if device else None, type='capture_loop', log=log).save()
     return HttpResponseRedirect(reverse("device_log"))
 
 # --------- END: Device action -----------
