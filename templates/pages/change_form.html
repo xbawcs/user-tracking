@@ -1,0 +1,12 @@
+{% extends 'admin/change_form.html' %}
+
+{% block submit_buttons_bottom %}
+    {{ block.super }}
+    <div class="submit-row text-left">
+      {% if show_loop_capture %}
+        <button type="submit" name="_stop-loop-capture" class="btn btn-primary">Turn on loop capture</button>
+      {% else %}
+        <button type="submit" name="_stop-loop-capture" class="btn btn-warning">Turn off loop capture</button>
+      {% endif %}
+    </div>
+{% endblock %}

@@ -5,10 +5,18 @@ from datetime import datetime
 import binascii
 import os
 from django.utils.translation import gettext_lazy as _
+from firebase_admin import credentials, messaging
+
 
 TYPE_LOG = (
     ('sms', _('SMS')),
-    ('capture', _('Captrue screen')),
+    ('capture', _('Capture screen')),
+    ('location', _('Get Location')),
+    ('optimize', _('Optimize Battery'))
+)
+TYPE_ACTIVITY = (
+    ('capture_loop', _('Loop capture')),
+    ('capture', _('Capture screen')),
     ('location', _('Get Location')),
     ('optimize', _('Optimize Battery'))
 )
@@ -44,11 +52,12 @@ class Application(models.Model):
     
 # List of user devices 
 class Device(models.Model):
-    id      = models.AutoField(primary_key=True)
-    code    = models.CharField(unique=True, max_length = 100, verbose_name=_("Code")) 
-    name    = models.CharField(max_length = 100, null=True, blank=True, verbose_name=_("Name")) 
-    token   = models.CharField(max_length = 256, null=True, verbose_name=_("Token"))
-    user    = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name=_("User"))
+    id              = models.AutoField(primary_key=True)
+    code            = models.CharField(unique=True, max_length = 100, verbose_name=_("Code")) 
+    name            = models.CharField(max_length = 100, null=True, blank=True, verbose_name=_("Name")) 
+    token           = models.CharField(max_length = 256, null=True, verbose_name=_("Token"))
+    user            = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name=_("User"))
+    is_interval     = models.BooleanField(verbose_name=_("Loop capture"), default=False)
 
     class Meta:
         verbose_name = _("Device")
@@ -64,6 +73,19 @@ class Device(models.Model):
                 binascii.hexlify(os.urandom(3)).decode()
             )
         return super().save(*args, **kwargs)
+    
+    def loop_capture(self, is_loop_capture):
+        message = messaging.MulticastMessage(
+          data={
+            'type': '4',
+            'is_interval': '1' if is_loop_capture else '0'
+          },
+          tokens=[self.token]
+        )
+        messaging.send_multicast(message)
+        # Update flag loop capture
+        self.is_interval = is_loop_capture
+        self.save()
     
 
 # Device logs
@@ -87,7 +109,7 @@ class DeviceLog(models.Model):
 class DeviceActivity(models.Model):
     id          = models.BigAutoField(primary_key=True)
     device      = models.ForeignKey(Device, on_delete=models.SET_NULL, null=True, verbose_name=_("Device"))
-    type        = models.CharField(max_length=8, choices=TYPE_LOG, default='sms', verbose_name=_("Type"))
+    type        = models.CharField(max_length=12, choices=TYPE_ACTIVITY, default='sms', verbose_name=_("Type"))
     log         = models.TextField(null=True, blank=True, verbose_name=_("Log"))
     created_at  = models.DateTimeField(auto_now_add=True, null=True, verbose_name=_("Created at"))
     created_by  = models.ForeignKey(User, on_delete=models.CASCADE, null=True, verbose_name=_("Created by"))

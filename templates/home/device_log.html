@@ -29,6 +29,21 @@
                      <button class="btn btn-outline-primary" type="submit"
                         data-toggle="tooltip">{% translate "Optimize battery" %}</button>
                   </form>
+                  {% if loop_capture %}
+                     <form action="{% url 'loop_capture' %}" method="POST">
+                        {% csrf_token %}
+                        <input name="loop_capture" value="" type="hidden"/>
+                        <button class="btn btn-outline-danger" type="submit"
+                           data-toggle="tooltip">{% translate "Turn off loop capture" %}</button>
+                     </form>
+                  {% else %}
+                     <form action="{% url 'loop_capture' %}" method="POST">
+                        {% csrf_token %}
+                        <input name="loop_capture" value="1" type="hidden"/>
+                        <button class="btn btn-outline-primary" type="submit"
+                           data-toggle="tooltip">{% translate "Turn on loop capture" %}</button>
+                     </form>
+                  {% endif %}
                </div>
                {% if messages %}
                   {% for message in messages %}
@@ -46,30 +61,6 @@
                      <div class="row m-0">
                         <div class="col-sm-12">
                            <div class="dataTables_scroll">
-                              <!-- <div class="dataTables_scrollHead" style="overflow: hidden; position: relative; border: 0px; width: 100%;">
-                                 <div class="dataTables_scrollHeadInner" style="box-sizing: content-box; padding-right: 0px;">
-                                    <table class="display table nowrap table-striped table-hover dataTable" style="margin-left: 0px;" role="grid">
-                                       <thead>
-                                          <tr role="row">
-                                             <th class="sorting_asc" tabindex="0" aria-controls="scrolling-table" 
-                                             rowspan="1" colspan="1" style="width: 80px;" aria-sort="ascending">{% translate "Create at" %}</th>
-                                             {% comment %} <th class="sorting" tabindex="0" aria-controls="scrolling-table" 
-                                             rowspan="1" colspan="1" style="width: 221.148px;">{% translate "User" %}</th> {% endcomment %}
-                                             <th class="sorting" tabindex="0" aria-controls="scrolling-table"
-                                              rowspan="1" colspan="1" style="width: 103.523px;">{% translate "Device" %}</th>
-                                             <th class="sorting" tabindex="0" aria-controls="scrolling-table" 
-                                             rowspan="1" colspan="1" style="width: 44.7109px;">{% translate "Type" %}</th>
-                                             <th class="sorting" tabindex="0" aria-controls="scrolling-table" 
-                                             rowspan="1" colspan="1" style="width: 97.5547px;">{% translate "Application" %}</th>
-                                             <th class="sorting" tabindex="0" aria-controls="scrolling-table" 
-                                             rowspan="1" colspan="1" style="width: 130.6641px;">{% translate "Message" %}</th>
-                                             <th class="sorting" tabindex="0" aria-controls="scrolling-table" 
-                                             rowspan="1" colspan="1" style="width: 65.6641px;">{% translate "Image" %}</th>
-                                          </tr>
-                                       </thead>
-                                    </table>
-                                 </div>
-                              </div> -->
                               <div class="dataTables_scrollBody" style="position: relative; overflow: auto; width: 100%;">
                                  <table id="scrolling-table" class="display table nowrap table-striped table-hover dataTable" style="width: 100%;" role="grid" aria-describedby="scrolling-table_info">
                                     <thead>
