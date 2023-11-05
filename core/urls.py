@@ -19,14 +19,15 @@ from django.conf import settings
 from django.conf.urls.static import static
 from rest_framework.authtoken.views import obtain_auth_token # <-- NEW
 from . import views
-from home.views import CustomAuthToken
+from home.views import CustomAuthToken, index
 from django.views.decorators.csrf import csrf_exempt
 
 
 urlpatterns = [
     path('', include('home.urls')),
     path('admin/', admin.site.urls),
-    path('', include('admin_datta.urls')),
+    path('accounts/register/', index), # To prevent register 
+    path('', include('admin_datta.urls')),   
     # path('', include('django_dyn_dt.urls')), # <-- NEW: Dynamic_DT Routing   
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

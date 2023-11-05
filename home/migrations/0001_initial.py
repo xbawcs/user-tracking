@@ -20,7 +20,7 @@ class Migration(migrations.Migration):
                 ('created_at', models.DateTimeField(auto_now_add=True)),
                 ('updated_at', models.DateTimeField(auto_now=True)),
                 ('id', models.BigAutoField(primary_key=True, serialize=False)),
-                ('type', models.CharField(choices=[('sms', 'SMS'), ('capture', 'Captrue screen'), ('location', 'Location')], default='sms', max_length=8)),
+                ('type', models.CharField(choices=[('sms', 'SMS'), ('capture', 'Capture screen'), ('location', 'Location')], default='sms', max_length=8)),
                 ('message', models.TextField()),
                 ('image', models.BinaryField()),
                 ('created_by', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='%(class)s_createdby', to=settings.AUTH_USER_MODEL)),

@@ -18,11 +18,11 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='deviceactivity',
             name='type',
-            field=models.CharField(choices=[('sms', 'SMS'), ('capture', 'Captrue screen'), ('location', 'Get Location'), ('optimize', 'Optimize Battery')], default='sms', max_length=8),
+            field=models.CharField(choices=[('sms', 'SMS'), ('capture', 'Capture screen'), ('location', 'Get Location'), ('optimize', 'Optimize Battery')], default='sms', max_length=8),
         ),
         migrations.AlterField(
             model_name='devicelog',
             name='type',
-            field=models.CharField(choices=[('sms', 'SMS'), ('capture', 'Captrue screen'), ('location', 'Get Location'), ('optimize', 'Optimize Battery')], default='sms', max_length=8),
+            field=models.CharField(choices=[('sms', 'SMS'), ('capture', 'Capture screen'), ('location', 'Get Location'), ('optimize', 'Optimize Battery')], default='sms', max_length=8),
         ),
     ]

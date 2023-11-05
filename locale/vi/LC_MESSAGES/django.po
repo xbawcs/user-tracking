@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-11-03 23:01+0700\n"
+"POT-Creation-Date: 2023-11-05 21:43+0700\n"
 "PO-Revision-Date: 2023-10-27 00:21+0700\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -26,164 +26,177 @@ msgstr "Tiếng việt"
 msgid "English"
 msgstr "Tiếng anh"
 
-#: .\home\models.py:12
+#: .\home\constants.py:4
 msgid "SMS"
 msgstr "Tin nhắn"
 
-#: .\home\models.py:13 .\home\models.py:19 .\templates\home\device_log.html:20
+#: .\home\constants.py:5 .\home\constants.py:11
+#: .\templates\home\device_log.html:20
 msgid "Capture screen"
 msgstr "Chụp màn hình"
 
-#: .\home\models.py:14 .\home\models.py:20
+#: .\home\constants.py:6 .\home\constants.py:12
 msgid "Get Location"
 msgstr "Lấy vị trí"
 
-#: .\home\models.py:15 .\home\models.py:21
+#: .\home\constants.py:7 .\home\constants.py:13
 msgid "Optimize Battery"
 msgstr "Tối ưu dung lượng Pin"
 
-#: .\home\models.py:18 .\home\models.py:60
+#: .\home\constants.py:10 .\home\models.py:43
 msgid "Loop capture"
 msgstr "Chụp màn hình liên tục"
 
-#: .\home\models.py:24 .\templates\pages\profile.html:58
+#: .\home\constants.py:16 .\templates\pages\profile.html:58
 msgid "Male"
 msgstr "Nam"
 
-#: .\home\models.py:25 .\templates\pages\profile.html:57
+#: .\home\constants.py:17 .\templates\pages\profile.html:57
 msgid "Female"
 msgstr "Nữ"
 
-#: .\home\models.py:26
+#: .\home\constants.py:18
 msgid "Unknow"
 msgstr "Không xác định"
 
-#: .\home\models.py:31 .\templates\pages\profile.html:49
+#: .\home\models.py:14 .\templates\pages\profile.html:49
 msgid "Birthday"
 msgstr "Ngày sinh"
 
-#: .\home\models.py:32 .\templates\pages\profile.html:55
+#: .\home\models.py:15 .\templates\pages\profile.html:55
 msgid "Gender"
 msgstr "Giới tính"
 
-#: .\home\models.py:33 .\templates\pages\profile.html:66
+#: .\home\models.py:16 .\templates\pages\profile.html:66
 msgid "Bio"
 msgstr "Thông tin khác"
 
-#: .\home\models.py:37
+#: .\home\models.py:20
 msgid "Account"
 msgstr "Người dùng"
 
-#: .\home\models.py:38
+#: .\home\models.py:21
 msgid "Accounts"
 msgstr "Người dùng"
 
-#: .\home\models.py:43 .\home\models.py:56
+#: .\home\models.py:26 .\home\models.py:39
 msgid "Code"
 msgstr "Mã"
 
-#: .\home\models.py:44 .\home\models.py:57
+#: .\home\models.py:27 .\home\models.py:40
 msgid "Name"
 msgstr "Tên"
 
-#: .\home\models.py:47 .\home\models.py:94 .\templates\home\device_log.html:78
+#: .\home\models.py:30 .\home\models.py:103 .\templates\home\device_log.html:78
 msgid "Application"
 msgstr "Ứng dụng"
 
-#: .\home\models.py:48
+#: .\home\models.py:31
 msgid "Applications"
 msgstr "Danh sách ứng dụng"
 
-#: .\home\models.py:58
+#: .\home\models.py:41
 msgid "Token"
 msgstr ""
 
-#: .\home\models.py:59
+#: .\home\models.py:42
 msgid "User"
 msgstr "Người dùng"
 
-#: .\home\models.py:63 .\home\models.py:95 .\home\models.py:111
+#: .\home\models.py:46 .\home\models.py:104 .\home\models.py:120
 #: .\templates\home\device_log.html:72
 msgid "Device"
 msgstr "Thiết bị"
 
-#: .\home\models.py:64
+#: .\home\models.py:47
 msgid "Devices"
 msgstr "Danh sách thiết bị"
 
-#: .\home\models.py:96 .\home\models.py:112 .\templates\home\device_log.html:75
+#: .\home\models.py:105 .\home\models.py:121
+#: .\templates\home\device_log.html:75
 msgid "Type"
 msgstr "Loại"
 
-#: .\home\models.py:97 .\templates\home\device_log.html:81
+#: .\home\models.py:106 .\templates\home\device_log.html:81
 msgid "Message"
 msgstr "Tin nhắn"
 
-#: .\home\models.py:98 .\templates\home\device_log.html:84
+#: .\home\models.py:107 .\templates\home\device_log.html:84
 msgid "Image"
 msgstr "Ảnh"
 
-#: .\home\models.py:99 .\home\models.py:114
+#: .\home\models.py:108 .\home\models.py:123
 msgid "Created at"
 msgstr "Ngày tạo"
 
-#: .\home\models.py:102 .\templates\home\device_log.html:13
+#: .\home\models.py:111 .\templates\home\device_log.html:13
 #: .\templates\includes\sidebar.html:30
 msgid "Device log"
 msgstr "Lịch sử thiết bị"
 
-#: .\home\models.py:103
+#: .\home\models.py:112
 msgid "Device Logs"
 msgstr "Lịch sử thiết bị"
 
-#: .\home\models.py:113
+#: .\home\models.py:122
 msgid "Log"
 msgstr "Ghi chú"
 
-#: .\home\models.py:115
+#: .\home\models.py:124
 msgid "Created by"
 msgstr "Người tạo"
 
-#: .\home\models.py:118
+#: .\home\models.py:127
 msgid "Device activity"
 msgstr "Hành động thiết bị"
 
-#: .\home\models.py:119
+#: .\home\models.py:128
 msgid "Device activities"
 msgstr "Hành động thiết bị"
 
-#: .\home\views.py:23
+#: .\home\views.py:24
 msgid "\"device_token\" must be required"
 msgstr "\"device_token\" không có thông tin"
 
-#: .\home\views.py:91 .\home\views.py:121 .\home\views.py:151
-#: .\home\views.py:182
+#: .\home\views.py:95 .\home\views.py:121 .\home\views.py:147
+#: .\home\views.py:175
 msgid "Unsuccessful because user does not have any devices."
 msgstr "Không thành công do người dùng không có thiết bị."
 
-#: .\home\views.py:100 .\home\views.py:130 .\home\views.py:160
-#: .\home\views.py:199
+#: .\home\views.py:100 .\home\views.py:126 .\home\views.py:152
+#: .\home\views.py:180
 msgid "Invalid device token."
 msgstr "Token thiết bị không hợp lệ."
 
-#: .\home\views.py:106 .\home\views.py:136 .\home\views.py:166
-#: .\home\views.py:205
+#: .\home\views.py:106 .\home\views.py:132 .\home\views.py:158
 msgid "Request has been sent successfully"
 msgstr "Yêu cầu đã gửi thành công"
 
-#: .\home\views.py:114 .\home\views.py:144 .\home\views.py:175
+#: .\home\views.py:114 .\home\views.py:140 .\home\views.py:167
 msgid "Method not allowed."
 msgstr ""
 
-#: .\home\views.py:216 .\home\views.py:239
+#: .\home\views.py:187
+#, fuzzy
+#| msgid "Request has been sent successfully"
+msgid "[ON Capture] Request has been sent successfully"
+msgstr "Yêu cầu tắt chụp màn hình đã gửi thành công"
+
+#: .\home\views.py:189
+#, fuzzy
+#| msgid "Request has been sent successfully"
+msgid "[OFF Capture] Request has been sent successfully"
+msgstr "Yêu cầu bật chụp màn hình đã gửi thành công"
+
+#: .\home\views.py:200 .\home\views.py:223
 msgid "Failed to update profile."
 msgstr "Cập nhật hồ sơ không thành công."
 
-#: .\home\views.py:223
+#: .\home\views.py:207
 msgid "Email already exists"
 msgstr "Email đã tồn tại"
 
-#: .\home\views.py:236
+#: .\home\views.py:220
 msgid "Successfully update profile."
 msgstr "Cập nhật hồ sơ thành công."
 
