@@ -6,7 +6,10 @@ from django.http import HttpResponseRedirect
 from django.contrib.auth.models import User
 from django.conf import settings
 from django.utils.translation import gettext as _
+from rest_framework.authtoken.admin import TokenAdmin
+
 admin.ModelAdmin.list_per_page = settings.LIST_PER_PAGE
+TokenAdmin.readonly_fields = ("user", )
 
 # Base read only model
 class BaseReadOnlyAdminMixin:
@@ -26,7 +29,7 @@ class ApplicationAdmin(admin.ModelAdmin):
 
 
 class DeviceAdmin(admin.ModelAdmin):
-    readonly_fields = ["user", 'code']
+    readonly_fields = ("user", 'code')
     list_display = ("user", "code", 'name', "token")
     exclude = ('is_interval',)
     search_fields = ('user__username', 'code', 'is_interval', 'token')

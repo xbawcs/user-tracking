@@ -106,18 +106,12 @@ WSGI_APPLICATION = "core.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-# DB_ENGINE   = os.getenv('DB_ENGINE'   , None)
-# DB_USERNAME = os.getenv('DB_USERNAME' , None)
-# DB_PASS     = os.getenv('DB_PASS'     , None)
-# DB_HOST     = os.getenv('DB_HOST'     , None)
-# DB_PORT     = os.getenv('DB_PORT'     , None)
-# DB_NAME     = os.getenv('DB_NAME'     , None)
-DB_ENGINE   = 'postgresql'
-DB_USERNAME = 'admin'
-DB_PASS     = '123'
-DB_HOST     = 'localhost'
-DB_PORT     = '5434'
-DB_NAME     = 'user_tracking'
+DB_ENGINE   = os.getenv('DB_ENGINE'   , 'postgresql')
+DB_USERNAME = os.getenv('DB_USERNAME' , 'admin')
+DB_PASS     = os.getenv('DB_PASS'     , '123')
+DB_HOST     = os.getenv('DB_HOST'     , 'localhost')
+DB_PORT     = os.getenv('DB_PORT'     , '5434')
+DB_NAME     = os.getenv('DB_NAME'     , 'user_tracking')
 
 if DB_ENGINE and DB_NAME and DB_USERNAME:
     DATABASES = { 

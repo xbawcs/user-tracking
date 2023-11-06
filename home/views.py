@@ -83,9 +83,40 @@ def device_log(request):
   return render(request, "home/device_log.html", context)
 
 @login_required
+def delete_log(request):
+  if request.method!="POST":
+    messages.error(request, 'Method not allowed.')
+    return HttpResponseRedirect(reverse("device_log"))
+  else:
+    context = {
+      'segment': 'delete_log'
+    }
+    log_ids = [eval(i) for i in request.POST.getlist("selected_options")] \
+                    if request.POST.getlist("selected_options") else []
+    if log_ids:
+      device = Device.objects.filter(user_id=request.user.id).first()
+      device_log = DeviceLog.objects.filter(id__in=log_ids)
+      if device_log:
+        error = ''
+        for dl in device_log:
+          if dl.device != device:
+              error = _('You cannot delete records that are not yours')
+              break
+      else:
+        error = _('You cannot delete records that are not yours')
+    else:
+      error = _('Please select records to delete')
+    if error:
+      messages.error(request, error)
+    else:
+      device_log.delete()
+      messages.success(request, _("Records has been deleted successfully"))
+    return HttpResponseRedirect(reverse("device_log"))
+
+@login_required
 def capture_screen(request):
   if request.method!="POST":
-    # messages.error(request, 'Method not allowed.')
+    messages.error(request, 'Method not allowed.')
     return HttpResponseRedirect(reverse("device_log"))
   else:
     user = request.user
