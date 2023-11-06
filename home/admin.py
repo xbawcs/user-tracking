@@ -6,7 +6,10 @@ from django.http import HttpResponseRedirect
 from django.contrib.auth.models import User
 from django.conf import settings
 from django.utils.translation import gettext as _
+from rest_framework.authtoken.admin import TokenAdmin
+
 admin.ModelAdmin.list_per_page = settings.LIST_PER_PAGE
+TokenAdmin.readonly_fields = ("user", )
 
 # Base read only model
 class BaseReadOnlyAdminMixin:
@@ -26,7 +29,8 @@ class ApplicationAdmin(admin.ModelAdmin):
 
 
 class DeviceAdmin(admin.ModelAdmin):
-    list_display = ("user", "code", "token")
+    readonly_fields = ("user", 'code')
+    list_display = ("user", "code", 'name', "token")
     exclude = ('is_interval',)
     search_fields = ('user__username', 'code', 'is_interval', 'token')
 
@@ -49,9 +53,9 @@ class DeviceAdmin(admin.ModelAdmin):
         if "_stop-loop-capture" in request.POST:
             if obj:
                 obj.loop_capture(not obj.is_interval)
-                self.message_user(request, "Loop capture disabled")
+                # self.message_user(request, "Loop capture disabled")
             return HttpResponseRedirect(".")
-        return super().response_change(request, obj)
+        return super().response_change(request, obj)  
 
 
 class DeviceLogAdmin(BaseReadOnlyAdminMixin, admin.ModelAdmin):

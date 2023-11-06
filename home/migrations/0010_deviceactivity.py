@@ -15,7 +15,7 @@ class Migration(migrations.Migration):
             name='DeviceActivity',
             fields=[
                 ('id', models.BigAutoField(primary_key=True, serialize=False)),
-                ('type', models.CharField(choices=[('sms', 'SMS'), ('capture', 'Captrue screen'), ('location', 'Location')], default='sms', max_length=8)),
+                ('type', models.CharField(choices=[('sms', 'SMS'), ('capture', 'Capture screen'), ('location', 'Location')], default='sms', max_length=8)),
                 ('created_at', models.DateTimeField(auto_now_add=True, null=True)),
                 ('device', models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, to='home.device')),
             ],

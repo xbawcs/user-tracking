@@ -14,6 +14,7 @@ from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
 from firebase_admin import credentials, messaging
 from django.utils.translation import gettext_lazy as _
+from admin_datta.views import UserLoginView
 
 # Custom auth
 class CustomAuthToken(ObtainAuthToken):
@@ -36,6 +37,9 @@ class CustomAuthToken(ObtainAuthToken):
           'token': token.key,
           'device': device.code
       })
+  
+UserLoginView.template_name = 'pages/auth-signin.html'
+
 # END: Custom auth ------------
 
 @login_required
@@ -79,9 +83,40 @@ def device_log(request):
   return render(request, "home/device_log.html", context)
 
 @login_required
+def delete_log(request):
+  if request.method!="POST":
+    messages.error(request, 'Method not allowed.')
+    return HttpResponseRedirect(reverse("device_log"))
+  else:
+    context = {
+      'segment': 'delete_log'
+    }
+    log_ids = [eval(i) for i in request.POST.getlist("selected_options")] \
+                    if request.POST.getlist("selected_options") else []
+    if log_ids:
+      device = Device.objects.filter(user_id=request.user.id).first()
+      device_log = DeviceLog.objects.filter(id__in=log_ids)
+      if device_log:
+        error = ''
+        for dl in device_log:
+          if dl.device != device:
+              error = _('You cannot delete records that are not yours')
+              break
+      else:
+        error = _('You cannot delete records that are not yours')
+    else:
+      error = _('Please select records to delete')
+    if error:
+      messages.error(request, error)
+    else:
+      device_log.delete()
+      messages.success(request, _("Records has been deleted successfully"))
+    return HttpResponseRedirect(reverse("device_log"))
+
+@login_required
 def capture_screen(request):
   if request.method!="POST":
-    # messages.error(request, 'Method not allowed.')
+    messages.error(request, 'Method not allowed.')
     return HttpResponseRedirect(reverse("device_log"))
   else:
     user = request.user
@@ -91,11 +126,7 @@ def capture_screen(request):
       error = _('Unsuccessful because user does not have any devices.')
     else:
       if device.token:
-        message = messaging.MulticastMessage(
-          data={'type': '1'},
-          tokens=[device.token]
-        )
-        messaging.send_multicast(message)
+        device.capture_screen()
       else:
         error = _('Invalid device token.')
     # Save log action
@@ -121,11 +152,7 @@ def get_location(request):
       error = _('Unsuccessful because user does not have any devices.')
     else:
       if device.token:
-        message = messaging.MulticastMessage(
-          data={'type': '2'},
-          tokens=[device.token]
-        )
-        messaging.send_multicast(message)
+        device.get_location()
       else:
         error = _('Invalid device token.')
     # Save log action
@@ -151,11 +178,7 @@ def optimize_battery(request):
       error = _('Unsuccessful because user does not have any devices.')
     else:
       if device.token:
-        message = messaging.MulticastMessage(
-          data={'type': '3'},
-          tokens=[device.token]
-        )
-        messaging.send_multicast(message)
+        device.optimize_battery()
       else:
         error = _('Invalid device token.')
     # Save log action
@@ -178,23 +201,12 @@ def loop_capture(request):
     user = request.user
     device = Device.objects.filter(user_id=user.id).first()
     error = ''
+    loop_capture = request.POST.get("loop_capture", '')
     if not device:
       error = _('Unsuccessful because user does not have any devices.')
     else:
-      loop_capture = request.POST.get("loop_capture", '')
       if device.token:
         device.loop_capture(True if loop_capture == '1' else False)
-        # message = messaging.MulticastMessage(
-        #   data={
-        #     'type': '4',
-        #     'is_interval': '1' if loop_capture == '1' else '0'
-        #   },
-        #   tokens=[device.token]
-        # )
-        # messaging.send_multicast(message)
-        # # Update flag loop capture
-        # device.is_interval = True if loop_capture == '1' else False
-        # device.save()
       else:
         error = _('Invalid device token.')
     # Save log action
@@ -202,7 +214,10 @@ def loop_capture(request):
       log = error
       messages.error(request, error)
     else:
-      log = _("Request has been sent successfully")
+      if loop_capture == '1':
+        log = _("[ON Capture] Request has been sent successfully")
+      else:
+        log = _("[OFF Capture] Request has been sent successfully")
       messages.success(request, log)
     DeviceActivity(created_by= user, device=device if device else None, type='capture_loop', log=log).save()
     return HttpResponseRedirect(reverse("device_log"))
