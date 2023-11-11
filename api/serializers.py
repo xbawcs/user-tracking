@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from home import models
+from home import models, constants
 
 
 class DeviceLogSerializer(serializers.ModelSerializer):
@@ -30,7 +30,7 @@ class DeviceLogSerializer(serializers.ModelSerializer):
 
         # Check type
         type = data.get('type', False) 
-        if type not in dict(models.TYPE_LOG):
+        if type not in dict(constants.TYPE_LOG):
             errors["type"] = ["Type is not valid."]
         if errors:
             raise serializers.ValidationError({'errors': errors})

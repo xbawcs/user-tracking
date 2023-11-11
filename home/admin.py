@@ -10,6 +10,7 @@ from rest_framework.authtoken.admin import TokenAdmin
 
 admin.ModelAdmin.list_per_page = settings.LIST_PER_PAGE
 TokenAdmin.readonly_fields = ("user", )
+# admin.site.disable_action('delete_selected')
 
 # Base read only model
 class BaseReadOnlyAdminMixin:
@@ -20,6 +21,8 @@ class BaseReadOnlyAdminMixin:
         return False
 
     def has_delete_permission(self, request, obj=None):
+        if request.user.is_superuser:
+            return True
         return False
 
 # User Tracking -------------------
@@ -40,6 +43,8 @@ class DeviceAdmin(admin.ModelAdmin):
         return False
     
     def has_delete_permission(self, request, obj=None):
+        if request.user.is_superuser:
+            return True
         return False
     
     def render_change_form(self, request, context, add=False, change=False, form_url='', obj=None):
@@ -84,6 +89,24 @@ class AccountInline(admin.StackedInline):
 
 class UserAdmin(BaseUserAdmin):
     inlines = [AccountInline]
+    readonly_fields = ['date_joined', 'last_login']
+    fieldsets = (
+        (None, {"fields": ("username", "password")}),
+        (_("Personal info"), {"fields": ("first_name", "last_name", "email")}),
+        # (
+        #     _("Permissions"),
+        #     {
+        #         "fields": (
+        #             "is_active",
+        #             "is_staff",
+        #             "is_superuser",
+        #             "groups",
+        #             "user_permissions",
+        #         ),
+        #     },
+        # ),
+        (_("Important dates"), {"fields": (("last_login", "date_joined"),)}),
+    )
 
 admin.site.unregister(User)
 admin.site.register(User, UserAdmin)

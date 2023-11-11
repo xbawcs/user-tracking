@@ -238,3 +238,25 @@ from firebase_admin import credentials
 cred = credentials.Certificate("./notification-firebase-adminsdk.json")
 firebase_admin.initialize_app(cred)
 
+
+
+######################
+# LOG
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': 'D:/ForFun/Logs/user_tracking.log',
+        },
+    },
+    'loggers': {
+        '': { # empty string
+            'handlers': ['file'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
+    },
+}

@@ -22,6 +22,7 @@ from . import views
 from home.views import CustomAuthToken, index
 from django.views.decorators.csrf import csrf_exempt
 
+admin.site.index = index
 
 urlpatterns = [
     path('', include('home.urls')),
