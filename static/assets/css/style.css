@@ -10680,3 +10680,7 @@ div.code-toolbar > .toolbar span:hover {
   background-repeat: no-repeat;
   background-position: center;
 }
+
+.table-settings .row {
+  margin-left: 0;
+}

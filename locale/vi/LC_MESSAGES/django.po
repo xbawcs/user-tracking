@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-11-06 23:58+0700\n"
+"POT-Creation-Date: 2023-11-11 23:50+0700\n"
 "PO-Revision-Date: 2023-10-27 00:21+0700\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -25,6 +25,18 @@ msgstr "Tiếng việt"
 #: .\core\settings.py:159
 msgid "English"
 msgstr "Tiếng anh"
+
+#: .\home\admin.py:95
+msgid "Personal info"
+msgstr "Thông tin người dùng"
+
+#: .\home\admin.py:97
+msgid "Permissions"
+msgstr "Quyền"
+
+#: .\home\admin.py:108
+msgid "Important dates"
+msgstr "Thời gian hoạt động"
 
 #: .\home\constants.py:4
 msgid "SMS"
@@ -47,11 +59,11 @@ msgstr "Tối ưu dung lượng Pin"
 msgid "Loop capture"
 msgstr "Chụp màn hình liên tục"
 
-#: .\home\constants.py:16 .\templates\pages\profile.html:58
+#: .\home\constants.py:16
 msgid "Male"
 msgstr "Nam"
 
-#: .\home\constants.py:17 .\templates\pages\profile.html:57
+#: .\home\constants.py:17
 msgid "Female"
 msgstr "Nữ"
 
@@ -59,15 +71,15 @@ msgstr "Nữ"
 msgid "Unknow"
 msgstr "Không xác định"
 
-#: .\home\models.py:14 .\templates\pages\profile.html:49
+#: .\home\models.py:14
 msgid "Birthday"
 msgstr "Ngày sinh"
 
-#: .\home\models.py:15 .\templates\pages\profile.html:55
+#: .\home\models.py:15
 msgid "Gender"
 msgstr "Giới tính"
 
-#: .\home\models.py:16 .\templates\pages\profile.html:66
+#: .\home\models.py:16
 msgid "Bio"
 msgstr "Thông tin khác"
 
@@ -158,57 +170,115 @@ msgstr "Hành động thiết bị"
 msgid "\"device_token\" must be required"
 msgstr "\"device_token\" không có thông tin"
 
-#: .\home\views.py:103 .\home\views.py:106
+#: .\home\views.py:105 .\home\views.py:108
 msgid "You cannot delete records that are not yours"
 msgstr "Bạn không thể xóa bản ghi không thuộc về bạn"
 
-#: .\home\views.py:108
+#: .\home\views.py:110
 msgid "Please select records to delete"
 msgstr "Vui lòng chọn bản ghi để xóa"
 
-#: .\home\views.py:113
-#, fuzzy
-#| msgid "Request has been sent successfully"
+#: .\home\views.py:115
 msgid "Records has been deleted successfully"
 msgstr "Yêu cầu đã gửi thành công"
 
-#: .\home\views.py:126 .\home\views.py:152 .\home\views.py:178
-#: .\home\views.py:206
+#: .\home\views.py:128 .\home\views.py:154 .\home\views.py:180
+#: .\home\views.py:208
 msgid "Unsuccessful because user does not have any devices."
 msgstr "Không thành công do người dùng không có thiết bị."
 
-#: .\home\views.py:131 .\home\views.py:157 .\home\views.py:183
-#: .\home\views.py:211
+#: .\home\views.py:133 .\home\views.py:159 .\home\views.py:185
+#: .\home\views.py:213
 msgid "Invalid device token."
 msgstr "Token thiết bị không hợp lệ."
 
-#: .\home\views.py:137 .\home\views.py:163 .\home\views.py:189
+#: .\home\views.py:139 .\home\views.py:165 .\home\views.py:191
 msgid "Request has been sent successfully"
 msgstr "Yêu cầu đã gửi thành công"
 
-#: .\home\views.py:145 .\home\views.py:171 .\home\views.py:198
+#: .\home\views.py:147 .\home\views.py:173 .\home\views.py:200
 msgid "Method not allowed."
 msgstr ""
 
-#: .\home\views.py:218
+#: .\home\views.py:220
 msgid "[ON Capture] Request has been sent successfully"
 msgstr "Yêu cầu tắt chụp màn hình đã gửi thành công"
 
-#: .\home\views.py:220
+#: .\home\views.py:222
 msgid "[OFF Capture] Request has been sent successfully"
 msgstr "Yêu cầu bật chụp màn hình đã gửi thành công"
 
-#: .\home\views.py:231 .\home\views.py:254
+#: .\home\views.py:233 .\home\views.py:256
 msgid "Failed to update profile."
 msgstr "Cập nhật hồ sơ không thành công."
 
-#: .\home\views.py:238
+#: .\home\views.py:240
 msgid "Email already exists"
 msgstr "Email đã tồn tại"
 
-#: .\home\views.py:251
+#: .\home\views.py:253
 msgid "Successfully update profile."
 msgstr "Cập nhật hồ sơ thành công."
+
+#: .\templates\admin\delete_confirmation.html:42
+#, python-format
+msgid ""
+"\n"
+"                                    Deleting the %(object_name)s "
+"'%(escaped_object)s' would result in deleting\n"
+"                                    related objects, but your account "
+"doesn't have permission to delete the\n"
+"                                    following types of objects:\n"
+"                                "
+msgstr ""
+"\n"
+"                                    Xóa %(object_name)s "
+"'%(escaped_object)s' sẽ dẫn đến xóa\n"
+"                                    các thông tin liên quan, Nhưng bạn "
+"không có quyền để xóa \n"
+"                                    các thông tin sau:\n"
+"                                "
+
+#: .\templates\admin\delete_confirmation.html:60
+#, python-format
+msgid ""
+"\n"
+"                                    Deleting the %(object_name)s ' "
+"%(escaped_object)s' would require deleting\n"
+"                                    the following protected related "
+"objects:\n"
+"                                "
+msgstr ""
+"\n"
+"                                    Xóa %(object_name)s ' "
+"%(escaped_object)s' sẽ dẫn đến xóa\n"
+"                                    các thông tin được bảo vệ sau:\n"
+"                                "
+
+#: .\templates\admin\delete_confirmation.html:77
+#, python-format
+msgid ""
+"\n"
+"                                    Are you sure you want to delete the "
+"%(object_name)s \"%(escaped_object)s\"?\n"
+"                                    All of the following related items will "
+"be deleted:\n"
+"                                "
+msgstr ""
+"\n"
+"                                    Bạn muốn xóa "
+"%(object_name)s \"%(escaped_object)s\"?\n"
+"                                    Thì tất cả các thông tin liên quan "
+"sẽ bị xóa theo sau:\n"
+"                                "
+
+#: .\templates\admin\delete_confirmation.html:103
+msgid "Yes, I'm sure"
+msgstr "Xóa"
+
+#: .\templates\admin\delete_confirmation.html:105
+msgid "No, take me back"
+msgstr "Hủy bỏ"
 
 #: .\templates\home\device_log.html:26
 msgid "Get location"
@@ -226,7 +296,7 @@ msgstr "Tắt chụp liên tục"
 msgid "Turn on loop capture"
 msgstr "Bật chụp liên tục"
 
-#: .\templates\home\device_log.html:49
+#: .\templates\home\device_log.html:49 .\templates\home\device_log.html:148
 msgid "Delete"
 msgstr "Xóa"
 
@@ -237,6 +307,18 @@ msgstr "Ngày tạo"
 #: .\templates\home\device_log.html:117
 msgid "No data."
 msgstr "Không có dữ liệu."
+
+#: .\templates\home\device_log.html:140
+msgid "Confirmation"
+msgstr "Xác nhận"
+
+#: .\templates\home\device_log.html:145
+msgid "Are you sure you want to delete this record?"
+msgstr "Bạn muốn xóa bản ghi này?"
+
+#: .\templates\home\device_log.html:149
+msgid "Cancel"
+msgstr "Hủy bỏ"
 
 #: .\templates\includes\navigation.html:21
 msgid "Wellcome"
@@ -282,38 +364,29 @@ msgstr "Sau"
 msgid "Navigation"
 msgstr "Thanh công cụ"
 
-#: .\templates\pages\profile.html:14
-msgid "Edit Info"
-msgstr "Cập nhật hồ sơ"
+#~ msgid "Edit Info"
+#~ msgstr "Cập nhật hồ sơ"
 
-#: .\templates\pages\profile.html:21 .\templates\pages\profile.html:23
-msgid "First Name"
-msgstr "Tên"
+#~ msgid "First Name"
+#~ msgstr "Tên"
 
-#: .\templates\pages\profile.html:28 .\templates\pages\profile.html:30
-msgid "Last Name"
-msgstr "Họ"
+#~ msgid "Last Name"
+#~ msgstr "Họ"
 
-#: .\templates\pages\profile.html:35
-msgid "User name"
-msgstr "Người dùng"
+#~ msgid "User name"
+#~ msgstr "Người dùng"
 
-#: .\templates\pages\profile.html:41
-msgid "Email address"
-msgstr "Email"
+#~ msgid "Email address"
+#~ msgstr "Email"
 
-#: .\templates\pages\profile.html:43
-msgid "Enter email"
-msgstr "Nhập email"
+#~ msgid "Enter email"
+#~ msgstr "Nhập email"
 
-#: .\templates\pages\profile.html:44
-msgid "We'll never share your email with anyone else."
-msgstr "Thông tin này sẽ không được chia sẽ với bất cứ ai."
+#~ msgid "We'll never share your email with anyone else."
+#~ msgstr "Thông tin này sẽ không được chia sẽ với bất cứ ai."
 
-#: .\templates\pages\profile.html:64
-msgid "About Info"
-msgstr "Thông tin khác"
+#~ msgid "About Info"
+#~ msgstr "Thông tin khác"
 
-#: .\templates\pages\profile.html:82
-msgid "Save"
-msgstr "Lưu"
+#~ msgid "Save"
+#~ msgstr "Lưu"
