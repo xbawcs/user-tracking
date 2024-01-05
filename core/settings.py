@@ -260,3 +260,16 @@ LOGGING = {
         },
     },
 }
+
+
+IGNORED_MESSAGES = [
+    'vpbank', 'bidv', 'vietinbank', 'vietcombank', 'mbbank', 
+    'techcombank', 'agribank', 'acb', 'shb', 'vib', 'hdbank', 
+    'seabank', 'vbsp', 'sacombank', 'lienvietpostbank', 'msb', 
+    'scb', 'vdb', 'ocb', 'eximbank', 'tpbank', 'pvcombank', 
+    'bac a bank', 'woori', 'hsbc', 'scbvl', 'pbvn', 'abbank', 
+    'shbvn', 'ncb', 'vietabank', 'donga bank', 'uob', 'vietbank',
+    'nam a bank', 'anzvl', 'oceanbank', 'cimb', 'viet capital bank', 
+    'kienlongbank', 'ivb', 'baoviet bank', 'saigonbank', 'co-opbank', 
+    'gpbank', 'vrb', 'cb', 'pg bank', 'hlbvn'
+]

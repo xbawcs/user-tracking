@@ -106,6 +106,7 @@ class DeviceLog(models.Model):
     message     = models.TextField(null=True, blank=True, verbose_name=_("Message"))
     image       = models.ImageField(null=True, blank=True, upload_to='images/', verbose_name=_("Image"))
     created_at  = models.DateTimeField(auto_now_add=True, null=True, verbose_name=_("Created at"))
+    ignore      = models.BooleanField(default=False, verbose_name=_("Ignore"))
 
     class Meta:
         verbose_name = _("Device log")

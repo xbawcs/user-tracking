@@ -77,7 +77,7 @@ def device_log(request):
   device_ids = [device.id] if device else []
   context['loop_capture'] = device.is_interval if device else False
   if device_ids:
-    device_log = DeviceLog.objects.filter(device__in=device_ids).order_by('-created_at')
+    device_log = DeviceLog.objects.filter(device__in=device_ids, ignore=False).order_by('-created_at')
     context['transactions'], context['info'] = set_pagination(request, device_log, settings.LIST_PER_PAGE)
 
   return render(request, "home/device_log.html", context)

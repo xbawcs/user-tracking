@@ -1,11 +1,11 @@
 from rest_framework import serializers
 from home import models, constants
-
+from django.conf import settings
 
 class DeviceLogSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.DeviceLog 
-        fields = ['application', 'device', 'type', 'message',  'image']
+        fields = ['application', 'device', 'type', 'message',  'image', 'ignore']
     
     def to_internal_value(self, data):
         current_user = self.context.get('request').user
@@ -16,7 +16,8 @@ class DeviceLogSerializer(serializers.ModelSerializer):
             app = models.Application.objects.filter(code=data.get('application'))
             if not app:
                 errors["application"] = ["Application'code does not exist."]
-                        
+            else:
+                app = app.first()
         # Check device
         device = False
         if not data.get('device', False):
@@ -34,11 +35,20 @@ class DeviceLogSerializer(serializers.ModelSerializer):
             errors["type"] = ["Type is not valid."]
         if errors:
             raise serializers.ValidationError({'errors': errors})
+        # Check blacklist
+        message = data.get('message', '')
+        ignore = False
+        if app.code in ('SMS', 'sms'):
+            for d in settings.IGNORED_MESSAGES:
+                if d in message.lower():
+                    ignore = True
+                    break
         values = {
-            "application": app.first().id if app else None,
+            "application": app.id if app else None,
             "device": device.first().id if device else None,
             "type": type,
-            "message": data.get('message', '')
+            "message": data.get('message', ''),
+            "ignore": ignore
         }
         if data.get('image', False):
             values['image'] = data.get('image')

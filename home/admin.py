@@ -68,6 +68,9 @@ class DeviceLogAdmin(BaseReadOnlyAdminMixin, admin.ModelAdmin):
     search_fields = ('device__code', 'type', 'application__code')
     list_filter = ('type', 'application')
 
+    def get_queryset(self, request):
+        return super().get_queryset(request).filter(ignore=False)
+
 
 class DeviceActivityAdmin(BaseReadOnlyAdminMixin, admin.ModelAdmin):
     list_display = ("created_by", "device", "type", "log", "created_at")
